@@ -1,1 +1,1 @@
-print "I am NP-soft!"
+print "Greg makes me NP-hard."
