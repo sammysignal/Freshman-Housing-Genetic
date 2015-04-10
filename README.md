@@ -1,3 +1,3 @@
-# cs51-final-project
-CS51 Final Project
+# Application of a Genetic Algorithm to Rooming Optimization
+Application of a Genetic Algorithm to Rooming Optimization
 Test test test.
