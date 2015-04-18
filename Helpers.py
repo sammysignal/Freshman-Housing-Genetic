@@ -11,3 +11,6 @@ def crossover(dorm_a, dorm_b):
 
 def mutate(dorm):
 	return dorm.mutate()
+
+
+def get_fittest
