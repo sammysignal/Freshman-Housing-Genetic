@@ -1,7 +1,7 @@
-import random
+import random, Dorm, Room
 
 # Class that descibes a student and his/her attributes.
-class student:
+class Student:
 
 	# initializes a 'student' with the following values.
 	def __init__(self):
@@ -31,7 +31,7 @@ class student:
 def hundred_students():
 	lst = []
 	for i in range(100):
-		st = student()
+		st = Student()
 		male = ('m' if (random.random() > .500000) else 'f')
 		r = int(random.random() * 4)
 		sl = int(random.random() * 10) + 1
@@ -48,7 +48,7 @@ def hundred_students():
 
 # Quick test to show you how class attributes are accesses/changed.
 def attribute_test():
-	Sammy = student()
+	Sammy = Student()
 	assert (Sammy.cleanliness == 5)
 	Sammy.cleanliness = 10
 	assert (Sammy.cleanliness == 10)
