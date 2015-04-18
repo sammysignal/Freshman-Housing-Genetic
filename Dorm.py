@@ -12,6 +12,10 @@ class Dorm:
 	def get_fitness(self):
 		pass
 
+	# Mutates dorma nd returns a brand spanking new dorm, with slight modifications
+	def mutate(self):
+		pass
+
 
 def run_tests():
 	pass
