@@ -27,24 +27,6 @@ class Student:
 		self.sociability = 5
 
 
-# Generates a list of 100 random gender-specified students. 
-def hundred_students():
-	lst = []
-	for i in range(100):
-		st = Student()
-		male = ('m' if (random.random() > .500000) else 'f')
-		r = int(random.random() * 4)
-		sl = int(random.random() * 10) + 1
-		c = int(random.random() * 10) + 1
-		soc = int(random.random() * 10) + 1
-		st.gender = male
-		st.sleep = sl
-		st.roommates = r
-		st.cleanliness = c
-		st.sociability = soc
-		lst.append(st)
-	return lst
-
 
 # Quick test to show you how class attributes are accesses/changed.
 def attribute_test():
@@ -54,12 +36,8 @@ def attribute_test():
 	assert (Sammy.cleanliness == 10)
 
 
-def test_hundred_students():
-	a = hundred_students()
-	assert (len(a) == 100)
 
 def run_tests():
 	attribute_test()
-	test_hundred_students()
 
 run_tests()
