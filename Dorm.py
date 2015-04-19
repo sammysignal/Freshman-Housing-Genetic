@@ -36,7 +36,7 @@ class Dorm:
 			s = s + room.size
 		return s
 
-	# Mutates dorms nd returns a brand spanking new dorm
+	# Mutates dorm and returns a brand spanking new dorm
 	# with slight modifications.
 	# CRUCIAL FUNCTION
 	def mutate(self):
