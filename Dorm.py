@@ -12,7 +12,6 @@ class Dorm:
 
 	# Gets the fitness value of the dorm based on its students.
 	def dorm_fitness(self):
-		self.has_fitness = True
 		total = 0
 		# Sum all the fitnesses of individual rooms, weighted by
 		# number of people in each room, then divide by total
@@ -20,12 +19,11 @@ class Dorm:
 		for room in self.rooms:
 			total = total + (room.room_fitness() * room.size)
 
-		return (total / (float(self.count_students)))
-
-
-		# evaluate fitness. Once done, set fitness value so it
+		# Once done, set fitness value so it
 		# does not have to be calculated again
-		#self.fitness =  TODO
+		f = (total / (float(self.count_students)))
+		self.has_fitness = True
+		return f
 
 	def count_rooms(self):
 		return len(self.rooms)

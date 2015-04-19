@@ -1,4 +1,5 @@
 import Dorm, Student
+import copy
 
 # Class that descibes a room in a dorm.
 class Room:
@@ -19,10 +20,22 @@ class Room:
 	## A room with n students will have n-choose-2 compatibility values.
 	# TODO what is the fitness of a single? Sammy thinks we should
 	# 	not even take singles into consideration.
-	# Use Helpers.n_choose_2(), and Helpers.compatibility(a, b)
 	# CRUCIAL FUNCTION
 	def room_fitness(self):
-		pass
+		if self.size == 1:
+			raise Exception("Singles have no fitness value.")
+		total = 0
+		st = copy.deepcopy(self.students)
+		for i in self.size:
+			last = st.pop()
+			for comp in st:
+				total = total + Helpers.compatibility(last, comp)
+			st.insert(0, last)
+
+		return total / float(Helpers.n_choose_2(self.size))
+
+
+
 
 def run_tests():
 	pass
