@@ -11,3 +11,7 @@
 layouts = {
 	"Apley": [0, 14, 4]
 }
+
+accessible = {
+	"Apley": False
+}

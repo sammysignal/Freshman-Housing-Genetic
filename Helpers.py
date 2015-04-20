@@ -1,4 +1,5 @@
 import Dorm, Student, Room, Layouts
+import random
 
 ## Helper functions ##
 
@@ -17,18 +18,27 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students. The only specification 
 # is that only people of the same gender are together
 # in a room.
+# QUESTION - Under what circumstances is there no way to fit
+# 	all of the given students into the dorm by gender?
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
 	# first we need to grab students and build
 	# a random list of rooms by gender.
+	if dorm_size_by_name(dorm_name) != len(students):
+		raise Exception("Dorm size and number of students don't match")
 	rooms = []
 	dorm_scheme = Layouts.layouts[dorm_name]
 	room_size = 1
 	for num in dorm_scheme:
 		for i in range(num):
-			pass # TODO	
-
+			pass
+			# TODO
+			# TODO
+			# TODO
 		room_size = room_size + 1
+
+
+	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
 	
 
 # In our implementation, Dorms get crossed over,
@@ -72,21 +82,16 @@ def compatibility(student_a, student_b):
 
 
 
-# Generates a list of 100 random gender-specified students. 
-def hundred_students():
+# Generates a list of n random gender-specified students. 
+def generate_students(n):
 	lst = []
-	for i in range(100):
-		st = Student()
+	for i in range(n):
 		male = ('m' if (random.random() > .500000) else 'f')
 		r = int(random.random() * 4)
 		sl = int(random.random() * 10) + 1
 		c = int(random.random() * 10) + 1
 		soc = int(random.random() * 10) + 1
-		st.gender = male
-		st.sleep = sl
-		st.roommates = r
-		st.cleanliness = c
-		st.sociability = soc
+		st = Student.Student(male, sl, r, c, soc)
 		lst.append(st)
 	return lst
 
@@ -115,13 +120,13 @@ def n_choose_2(n):
 def test_dorm_size_by_name():
 	assert(dorm_size_by_name("Apley") == 40)
 
-def test_hundred_students():
-	a = hundred_students()
+def test_generate_students():
+	a = generate_students(100)
 	assert (len(a) == 100)
 
 def run_tests():
 	test_dorm_size_by_name()
-	test_hundred_students()
+	test_generate_students()
 
 
 run_tests()
