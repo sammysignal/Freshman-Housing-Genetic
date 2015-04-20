@@ -23,7 +23,7 @@ def dorm_size_by_name(dorm_name):
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
 	# first we need to grab students and build
-	# a random list of rooms by gender.
+	# a random list of rooms  by gender.
 	if dorm_size_by_name(dorm_name) != len(students):
 		raise Exception("Dorm size and number of students don't match")
 	rooms = []

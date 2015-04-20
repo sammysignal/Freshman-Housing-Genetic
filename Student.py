@@ -4,7 +4,7 @@ import Dorm, Room
 class Student:
 
 	# initializes a 'student' with the following values.
-	def __init__(self, gender, sleep, roommates, cleanliness, sociability):
+	def __init__(self, gender, sleep, roommates, cleanliness, sociability, student_id=0):
 		# gender either 'm', 'f', or 'o' for other/DNS
 		self.gender = gender
 
@@ -24,5 +24,7 @@ class Student:
 		# scale from 1 to 10.
 		self.sociability = sociability
 
+
+		self.student_id = student_id
 
 

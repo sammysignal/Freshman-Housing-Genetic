@@ -9,7 +9,7 @@
 # 		- 15 Triples
 #		- 20 Quads
 layouts = {
-	"Apley": [0, 14, 4]
+	"Apley": [6, 6, 4, 1]
 }
 
 accessible = {
