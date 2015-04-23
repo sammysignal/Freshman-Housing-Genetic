@@ -80,7 +80,7 @@ def compatibility(student_a, student_b):
 	pass
 
 
-# Generates a list of n random gender-specified students. 
+# Generates a list of n random students. 
 def generate_students(n):
 	lst = []
 	for i in range(n):
@@ -89,7 +89,8 @@ def generate_students(n):
 		sl = int(random.random() * 10) + 1
 		c = int(random.random() * 10) + 1
 		soc = int(random.random() * 10) + 1
-		st = Student.Student(male, sl, r, c, soc)
+		s_id = i
+		st = Student.Student(male, sl, r, c, soc, s_id)
 		lst.append(st)
 	return lst
 

@@ -35,7 +35,8 @@ class Dorm:
 		return s
 
 	# Mutates dorm and returns a brand spanking new dorm
-	# with slight modifications.
+	# with slight modifications, namely that two students
+	# of the same gender have been switched between rooms
 	# CRUCIAL FUNCTION
 	def mutate(self):
 		pass
