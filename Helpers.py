@@ -73,10 +73,11 @@ def get_fittest(dorm_lst):
 
 
 # Determines the compatibility level of a given two students.
+# Gender should be weighted higher than every other student
+# attribute.
 # CRUCIAL FUNCTION
 def compatibility(student_a, student_b):
 	pass
-
 
 
 # Generates a list of n random gender-specified students. 
