@@ -15,11 +15,7 @@ def dorm_size_by_name(dorm_name):
 	return total
 
 # Generates a random Dorm scheme given the name of
-# the dorm, and a list of students. The only specification 
-# is that only people of the same gender are together
-# in a room.
-# QUESTION - Under what circumstances is there no way to fit
-# 	all of the given students into the dorm by gender?
+# the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
 	# first we need to grab students and build
@@ -31,13 +27,12 @@ def generate_scheme(dorm_name, students):
 	room_size = 1
 	for num in dorm_scheme:
 		for i in range(num):
-			pass
-			# TODO
-			# TODO
-			# TODO
+			students_per_room = []
+			for i in range(room_size):
+				students_per_room.append(students.pop())
+			rooms.append(Room.Room(students_per_room))
 		room_size = room_size + 1
-
-
+		
 	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
 	
 
