@@ -32,7 +32,7 @@ def generate_scheme(dorm_name, students):
 				students_per_room.append(students.pop())
 			rooms.append(Room.Room(students_per_room))
 		room_size = room_size + 1
-		
+
 	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
 	
 
@@ -44,8 +44,10 @@ def generate_scheme(dorm_name, students):
 def crossover(dorm_a, dorm_b):
 	pass
 
-def mutate(dorm):
-	return dorm.mutate()
+# Takes in a dorm, and mutates it. Actual
+# implementation can be found in Dorm.py.
+def mutate(d):
+	return d.mutate()
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
