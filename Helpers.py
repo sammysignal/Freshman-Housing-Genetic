@@ -118,7 +118,7 @@ def n_choose_2(n):
 #############
 
 def test_dorm_size_by_name():
-	assert(dorm_size_by_name("Apley") == 40)
+	assert(dorm_size_by_name("Apley") == 34)
 
 def test_generate_students():
 	a = generate_students(100)
