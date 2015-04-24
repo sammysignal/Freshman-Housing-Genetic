@@ -7,8 +7,9 @@ class Dorm:
 	def __init__(self, name, rooms, accessible=False):
 		self.name = name
 		self.rooms = rooms
-		self.accessible = False
+		self.accessible = accessible
 		self.has_fitness = False
+		self.fitness = None
 
 	# Gets the fitness value of the dorm based on its students.
 	def dorm_fitness(self):
@@ -23,6 +24,7 @@ class Dorm:
 		# does not have to be calculated again
 		f = (total / (float(self.count_students)))
 		self.has_fitness = True
+		self.fitness = f
 		return f
 
 	def count_rooms(self):
