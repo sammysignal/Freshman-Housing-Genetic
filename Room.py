@@ -23,7 +23,7 @@ class Room:
 	# CRUCIAL FUNCTION
 	def room_fitness(self):
 		if self.size == 1:
-			raise Exception("Singles have no fitness value.")
+			return Helpers.compatibility(Student.Student(), Student.Student())
 		total = 0
 		st = copy.deepcopy(self.students)
 		for i in self.size:

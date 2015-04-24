@@ -15,11 +15,7 @@ def dorm_size_by_name(dorm_name):
 	return total
 
 # Generates a random Dorm scheme given the name of
-# the dorm, and a list of students. The only specification 
-# is that only people of the same gender are together
-# in a room.
-# QUESTION - Under what circumstances is there no way to fit
-# 	all of the given students into the dorm by gender?
+# the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
 	# first we need to grab students and build
@@ -31,12 +27,11 @@ def generate_scheme(dorm_name, students):
 	room_size = 1
 	for num in dorm_scheme:
 		for i in range(num):
-			pass
-			# TODO
-			# TODO
-			# TODO
+			students_per_room = []
+			for i in range(room_size):
+				students_per_room.append(students.pop())
+			rooms.append(Room.Room(students_per_room))
 		room_size = room_size + 1
-
 
 	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
 	
@@ -49,8 +44,10 @@ def generate_scheme(dorm_name, students):
 def crossover(dorm_a, dorm_b):
 	pass
 
-def mutate(dorm):
-	return dorm.mutate()
+# Takes in a dorm, and mutates it. Actual
+# implementation can be found in Dorm.py.
+def mutate(d):
+	return d.mutate()
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -76,6 +73,8 @@ def get_fittest(dorm_lst):
 
 
 # Determines the compatibility level of a given two students.
+# Gender should be weighted higher than every other student
+# attribute.
 # CRUCIAL FUNCTION
 def compatibility(student_a, student_b):
 	def gscore(x, y):
@@ -86,7 +85,7 @@ def compatibility(student_a, student_b):
 	def pscore(x,y):
 		return 10.0 - abs(float(x) - float(y))
 	def rscore(x,y):
-		return 10.0 - (2.0 * abs(float(x) - float(y))
+		return 10.0 - (2.0 * abs(float(x) - float(y)))
 	a = (0.5 * gscore(student_a.gender, student_b.gender))
 	b = (0.15 * pscore(student_a.sleep, student_b.sleep))
 	c = (0.15 * pscore(student_a.cleanliness, student_b.cleanliness))
@@ -94,7 +93,7 @@ def compatibility(student_a, student_b):
 	e = (0.05 * rscore(student_a.roommates, student_b.roommates))
 	return (a + b + c + d + e)
 
-# Generates a list of n random gender-specified students. 
+# Generates a list of n random students. 
 def generate_students(n):
 	lst = []
 	for i in range(n):
@@ -103,7 +102,8 @@ def generate_students(n):
 		sl = int(random.random() * 10) + 1
 		c = int(random.random() * 10) + 1
 		soc = int(random.random() * 10) + 1
-		st = Student.Student(male, sl, r, c, soc)
+		s_id = i
+		st = Student.Student(male, sl, r, c, soc, s_id)
 		lst.append(st)
 	return lst
 
@@ -130,7 +130,7 @@ def n_choose_2(n):
 #############
 
 def test_dorm_size_by_name():
-	assert(dorm_size_by_name("Apley") == 40)
+	assert(dorm_size_by_name("Apley") == 34)
 
 def test_generate_students():
 	a = generate_students(100)
