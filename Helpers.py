@@ -75,6 +75,7 @@ def get_fittest(dorm_lst):
 # Determines the compatibility level of a given two students.
 # Gender should be weighted higher than every other student
 # attribute.
+# Rating system out of 10, with 10 being the best possible score
 # CRUCIAL FUNCTION
 def compatibility(student_a, student_b):
 	def gscore(x, y):
