@@ -8,12 +8,12 @@ class Student:
 		# gender either 'm', 'f', or 'o' for other/DNS
 		self.gender = gender
 
-		# Sleep schedule. On a scale from 1 to 10, 0 being early to bed
+		# Sleep schedule. On a scale from 1 to 10, 1 being early to bed
 		# early to rise, and 10 being a night owl.
 		self.sleep = sleep
 
 		# size pref referring to preferred number of roommates. subject
-		# to change. Assume number of roomates ranges from 0 to 3
+		# to change. Assume number of roomates ranges from 0 to 5
 		# (is that necessarily the case? Look into room setup for dorms)
 		self.roommates = roommates
 

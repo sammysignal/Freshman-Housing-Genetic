@@ -78,9 +78,21 @@ def get_fittest(dorm_lst):
 # Determines the compatibility level of a given two students.
 # CRUCIAL FUNCTION
 def compatibility(student_a, student_b):
-	pass
-
-
+	def gscore(x, y):
+		if (x == y):
+			return 10.0
+		elif (x != y):
+			return 0.0
+	def pscore(x,y):
+		return 10.0 - abs(float(x) - float(y))
+	def rscore(x,y):
+		return 10.0 - (2.0 * abs(float(x) - float(y))
+	a = (0.5 * gscore(student_a.gender, student_b.gender))
+	b = (0.15 * pscore(student_a.sleep, student_b.sleep))
+	c = (0.15 * pscore(student_a.cleanliness, student_b.cleanliness))
+	d = (0.15 * pscore(student_a.sociability, student_b.sociability))
+	e = (0.05 * rscore(student_a.roommates, student_b.roommates))
+	return (a + b + c + d + e)
 
 # Generates a list of n random gender-specified students. 
 def generate_students(n):
