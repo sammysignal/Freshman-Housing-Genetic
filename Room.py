@@ -5,9 +5,10 @@ import copy
 class Room:
 
 	# initializes a Room with the size. student list is passed in.
-	def __init__(self, students, id=0):
+	def __init__(self, students, room_id=0):
 		self.students = students
 		self.size = len(students)
+		self.room_id = room_id
 
 	## Gets the fitness for a given room. 
 	# To do this, the function finds the given compatibility of any
