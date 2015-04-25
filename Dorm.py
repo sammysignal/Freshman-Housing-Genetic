@@ -47,7 +47,7 @@ class Dorm:
 	# 	a[student_a], a[student_b] = a[student_b], a[student_a]
 
 		
-	# 	student_gender = [item for item in self.rooms if item[0] = male]
+	# 	student_gender = [item for item in self.rooms if (item[0] == male)]
 	# 	random.sample(student_gender, 2)
 
 	# 	student_a = random.choice(self.rooms)

@@ -5,7 +5,7 @@ import copy
 class Room:
 
 	# initializes a Room with the size. student list is passed in.
-	def __init__(self, students):
+	def __init__(self, students, id=0):
 		self.students = students
 		self.size = len(students)
 

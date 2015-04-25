@@ -25,12 +25,14 @@ def generate_scheme(dorm_name, students):
 	rooms = []
 	dorm_scheme = Layouts.layouts[dorm_name]
 	room_size = 1
+	counter = 0
 	for num in dorm_scheme:
 		for i in range(num):
 			students_per_room = []
 			for i in range(room_size):
 				students_per_room.append(students.pop())
-			rooms.append(Room.Room(students_per_room))
+			rooms.append(Room.Room(students_per_room, counter))
+			counter = counter + 1
 		room_size = room_size + 1
 
 	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
