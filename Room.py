@@ -1,4 +1,4 @@
-import Dorm, Student
+import Dorm, Student, Helpers
 import copy
 
 # Class that descibes a room in a dorm.
@@ -27,7 +27,7 @@ class Room:
 			return Helpers.compatibility(Student.Student(), Student.Student())
 		total = 0
 		st = copy.deepcopy(self.students)
-		for i in self.size:
+		for i in range(self.size):
 			last = st.pop()
 			for comp in st:
 				total = total + Helpers.compatibility(last, comp)

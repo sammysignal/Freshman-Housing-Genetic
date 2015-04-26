@@ -1,5 +1,5 @@
 import Dorm, Student, Room, Layouts
-import random
+import random, copy
 
 ## Helper functions ##
 
@@ -46,10 +46,49 @@ def generate_scheme(dorm_name, students):
 def crossover(dorm_a, dorm_b):
 	pass
 
-# Takes in a dorm, and mutates it. Actual
-# implementation can be found in Dorm.py.
+
+# Helper for mutate that takes two lists,
+# and randomly switches two items. This alters
+# the lists that were passed in, and thus does
+# not have a return value.
+def switch_items(list_a, list_b):
+	to_b = list_a.pop(random.randrange(len(list_a)))
+	to_a = list_b.pop(random.randrange(len(list_b)))
+	list_a.append(to_a)
+	list_b.append(to_b)
+	return
+
+# Mutates dorm and returns a brand spanking new dorm
+# with slight modifications, namely that two students
+# of the same gender have been switched between rooms
+# CRUCIAL FUNCTION
+
+# def mutate(self, dorm_name=""):
+# 	student_a, student_b = random.sample(Dorm.Dorm(rooms), 2)
+# 	a[student_a], a[student_b] = a[student_b], a[student_a]
+
+	
+# 	student_gender = [item for item in self.rooms if (item[0] == male)]
+# 	random.sample(student_gender, 2)
+
+# 	student_a = random.choice(self.rooms)
+# 	student_b = random.choice(self.rooms)
+
+# 	new_dorm = [item for item in new_dorm if item[2] >= 5 or item[3] >= 0.3]
+
+## Sammy's attempt. ##
 def mutate(d):
-	return d.mutate()
+	dorm = copy.deepcopy(d)
+	weighted_rooms = []
+	for room in dorm.rooms:
+		for i in range(room.size):
+			weighted_rooms.append(room)
+	rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	while (rm1 == rm2):
+		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	switch_items(rm1.students, rm2.students)
+	return dorm
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -60,7 +99,8 @@ def get_fittest(dorm_lst):
 		if not d.has_fitness:
 			# does this change the objects in the list
 			# in place?
-			d.get_fitness()
+			d.dorm_fitness()
+
 
 	# sort list descending by fitness value
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
@@ -70,7 +110,7 @@ def get_fittest(dorm_lst):
 	else:
 		ret = []
 		for i in range(num):
-			ret.append(dorm_list[i])
+			ret.append(dorm_lst[i])
 		return ret
 
 
