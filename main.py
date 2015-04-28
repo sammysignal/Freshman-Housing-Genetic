@@ -1,5 +1,6 @@
 import Room, Dorm, Layouts
 from Helpers import *
+import sys
 
 # Dorm name.
 dorm_name = "Apley"
@@ -30,5 +31,6 @@ for i in range(10):
 		mutations.append(fit)
 
 	print((str(i+1)) + " iterations done.")
+	sys.stdout.flush()
 
 

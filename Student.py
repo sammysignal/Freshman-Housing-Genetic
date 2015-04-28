@@ -26,5 +26,4 @@ class Student:
 
 
 		self.student_id = student_id
-
-
+		

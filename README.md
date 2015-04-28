@@ -18,15 +18,16 @@ Before matriculating at Harvard, all incoming freshman are required to take a ho
   	- Crossover occurs between two schemes of the same dorm. 
   	- The "DNA" for a given schema can be interpreted as a list of student_ids.
   	  - Thus, what does crossing over actually mean in our schema?
-  - mutate
-  	- Potential ways to mutate:
-  	  - Switch two or more students.
-  	  - Average attributes of a room, and then switch based on that
-  - compatibility
-  	- For any two students, should two students necessarily match because they have similar attributes
-  	- Weighted: Should one attribute match for a given two students be weighted more than another attribute?
-  - generate_scheme
-  	- Under what curcumstances can the given student list not fit in the dorm based on gender?
+  - Tests
+  	- Test your own function
+
+  - interface
+  	1. file called input.csv 
+  	2. function 
+  	
+### Optional
+	1. More dorms
+	2. Test against other algorithm
 
 
 
