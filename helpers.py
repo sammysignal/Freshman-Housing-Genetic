@@ -1,5 +1,4 @@
 import dorm, student, layouts
-from room import Room
 import random, copy, csv
 
 ## Helper functions ##
@@ -8,7 +7,7 @@ import random, copy, csv
 # the name of that dorm. See Layouts.py.
 def dorm_size_by_name(dorm_name):
 	total = 0
-	dorm_scheme = layouts.layouts[dorm_name]
+	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	for num in dorm_scheme:
 		total = total + (room_size * num)
@@ -19,6 +18,7 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
+	from room import Room
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
 	if dorm_size_by_name(dorm_name) != len(students):
@@ -36,7 +36,7 @@ def generate_scheme(dorm_name, students):
 			counter = counter + 1
 		room_size = room_size + 1
 
-	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
+	return dorm.Dorm(dorm_name, rooms, layouts.Accessible[dorm_name])
 	
 
 # In our implementation, Dorms get crossed over,

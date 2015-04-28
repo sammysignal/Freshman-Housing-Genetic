@@ -19,7 +19,7 @@ class Dorm:
 		# number of people in each room, then divide by total
 		# size of that dorm to get a weighted average fitness.
 		for rm in self.rooms:
-			total = total + (rm.rm_fitness() * rm.size)
+			total = total + (rm.room_fitness() * rm.size)
 
 		# Once done, set fitness value so it
 		# does not have to be calculated again
