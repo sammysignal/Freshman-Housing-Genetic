@@ -1,5 +1,6 @@
-import Dorm, Student, Room, Layouts
-import random, copy
+import Dorm, Student, Layouts
+from Room import Room
+import random, copy, csv
 
 ## Helper functions ##
 
@@ -31,7 +32,7 @@ def generate_scheme(dorm_name, students):
 			students_per_room = []
 			for i in range(room_size):
 				students_per_room.append(students.pop())
-			rooms.append(Room.Room(students_per_room, counter))
+			rooms.append(Room(students_per_room, counter))
 			counter = counter + 1
 		room_size = room_size + 1
 
@@ -106,12 +107,27 @@ def get_fittest(dorm_lst):
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
 	num = (len(dorm_lst) / 10)
 	if num == 0:
-		return dorm_lst[0]
+		return [dorm_lst[0]]
 	else:
 		ret = []
 		for i in range(num):
 			ret.append(dorm_lst[i])
 		return ret
+
+# Gets the one fittest dorm scheme in a list of
+# filled dorms. Returns the dorm object.
+def get_absolute_fittest(dorm_lst):
+	if dorm_lst == []:
+		return []
+	for d in dorm_lst:
+		if not d.has_fitness:
+			# does this change the objects in the list
+			# in place?
+			d.dorm_fitness()
+
+	# sort list descending by fitness value
+	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
+	return dorm_lst[0]
 
 
 # Determines the compatibility level of a given two students.
@@ -166,7 +182,21 @@ def n_choose_2(n):
 		return 10
 	elif n == 6:
 		return 15
-	
+
+
+# takes a dorm scheme and displays it in a csv file
+# called 'output.csv'.
+# csv format:
+# ROOM_ID ROOM_SIZE STUDENT_ID
+def display_output(dorm):
+	with open('output.csv', 'wb') as output:
+	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+	    for room in dorm.rooms:
+	    	for student in room.students:
+	    		student_writer.writerow([room.room_id, room.room_size, student.student_id])
+
+	    output.close()
 
 #############
 ### tests ###
@@ -179,10 +209,19 @@ def test_generate_students():
 	a = generate_students(100)
 	assert (len(a) == 100)
 
+def test_get_fittest():
+	dorm_name = "Apley"
+	sz = dorm_size_by_name(dorm_name)
+	students = generate_students(sz)
+	dorm = generate_scheme(dorm_name, students)
+	print(dorm.dorm_fitness())
+
+
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
+	test_get_fittest()
 
 
-run_tests()
+#run_tests()
 
