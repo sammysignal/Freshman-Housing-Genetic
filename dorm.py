@@ -1,4 +1,4 @@
-import Room, Student, Helpers, Layouts
+import room
 import random
 
 # Class that descibes a dorm.
@@ -18,8 +18,8 @@ class Dorm:
 		# Sum all the fitnesses of individual rooms, weighted by
 		# number of people in each room, then divide by total
 		# size of that dorm to get a weighted average fitness.
-		for room in self.rooms:
-			total = total + (room.room_fitness() * room.size)
+		for rm in self.rooms:
+			total = total + (rm.rm_fitness() * rm.size)
 
 		# Once done, set fitness value so it
 		# does not have to be calculated again
@@ -33,24 +33,24 @@ class Dorm:
 
 	def count_men(self):
 		s = 0
-		for room in self.rooms:
-			for student in room.students:
+		for rm in self.rooms:
+			for student in rm.students:
 				if student.gender == 'm':
-					s = s + room.size
+					s = s + rm.size
 		return s
 
 	def count_women(self):
 		s = 0
-		for room in self.rooms:
-			for student in room.students:
+		for rm in self.rooms:
+			for student in rm.students:
 				if student.gender == 'f':
-					s = s + room.size
+					s = s + rm.size
 		return s
 
 	def count_students(self):
 		s = 0
-		for room in self.rooms:
-			s = s + room.size
+		for rm in self.rooms:
+			s = s + rm.size
 		return s
 
 

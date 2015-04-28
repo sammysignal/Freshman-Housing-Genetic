@@ -8,10 +8,10 @@
 #		- 10 Doubles
 # 		- 15 Triples
 #		- 20 Quads
-layouts = {
+Layouts = {
 	"Apley": [6, 6, 4, 1]
 }
 
-accessible = {
+Accessible = {
 	"Apley": False
 }

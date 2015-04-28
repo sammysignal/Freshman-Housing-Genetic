@@ -1,5 +1,5 @@
-import Room, Dorm, Layouts
-from Helpers import *
+import room, dorm, layouts
+from helpers import *
 import sys
 
 # Dorm name.

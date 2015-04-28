@@ -1,5 +1,5 @@
-import Dorm, Student, Layouts
-from Room import Room
+import dorm, student, layouts
+from room import Room
 import random, copy, csv
 
 ## Helper functions ##
@@ -8,7 +8,7 @@ import random, copy, csv
 # the name of that dorm. See Layouts.py.
 def dorm_size_by_name(dorm_name):
 	total = 0
-	dorm_scheme = Layouts.layouts[dorm_name]
+	dorm_scheme = layouts.layouts[dorm_name]
 	room_size = 1
 	for num in dorm_scheme:
 		total = total + (room_size * num)
@@ -24,7 +24,7 @@ def generate_scheme(dorm_name, students):
 	if dorm_size_by_name(dorm_name) != len(students):
 		raise Exception("Dorm size and number of students don't match")
 	rooms = []
-	dorm_scheme = Layouts.layouts[dorm_name]
+	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
 	for num in dorm_scheme:
@@ -81,9 +81,9 @@ def switch_items(list_a, list_b):
 def mutate(d):
 	dorm = copy.deepcopy(d)
 	weighted_rooms = []
-	for room in dorm.rooms:
-		for i in range(room.size):
-			weighted_rooms.append(room)
+	for rm in dorm.rooms:
+		for i in range(rm.size):
+			weighted_rooms.append(rm)
 	rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	while (rm1 == rm2):
@@ -162,7 +162,7 @@ def generate_students(n):
 		c = int(random.random() * 10) + 1
 		soc = int(random.random() * 10) + 1
 		s_id = i
-		st = Student.Student(male, sl, r, c, soc, s_id)
+		st = student.Student(male, sl, r, c, soc, s_id)
 		lst.append(st)
 	return lst
 
@@ -192,9 +192,9 @@ def display_output(dorm):
 	with open('output.csv', 'wb') as output:
 	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-	    for room in dorm.rooms:
-	    	for student in room.students:
-	    		student_writer.writerow([room.room_id, room.room_size, student.student_id])
+	    for rm in dorm.rooms:
+	    	for st in rm.students:
+	    		student_writer.writerow([rm.room_id, rm.room_size, st.student_id])
 
 	    output.close()
 
