@@ -188,18 +188,47 @@ def n_choose_2(n):
 # skips header row 
 # called 'input.csv'
 # adopted from http://stackoverflow.com/questions/22242181/csv-row-import-into-python-array
-def import_dorm(input.csv):
-	with open('input.csv') as f:
-		data = csv.reader(f)
-		skip = next(data)
-		print [map(float, l) for l in cr] #not sure how to output an array but this will print it
+# def import_dorm(input.csv):
+# 	with open('input.csv') as f:
+# 		data = csv.reader(f)
+# 		skip = next(data)
+# 		print [map(float, l) for l in cr] #not sure how to output an array but this will print it
+
+# takes a csv file name and returns a list of students.
+# csv format:
+# STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
+def import_students(filename):
+	with open(filename) as f:
+		reader = csv.reader(f)
+		lst = list(reader)
+		first = True
+		student_lst = []
+		for row in lst:
+			if first != True:
+				st = student.Student()
+				for i in range(6):
+					if i == 0:
+						st.student_id = row[i]
+					if i == 1:
+						st.gender = row[i]
+					if i == 2:
+						st.sleep = row[i]
+					if i == 3:
+						st.roommates = row[i]
+					if i == 4:
+						st.cleanliness = row[i]
+					if i == 5:
+						st.sociability = row[i]
+				student_lst.append(st)
+			first = False
+		return student_lst
 
 		
 		
 # takes a dorm scheme and displays it in a csv file
 # called 'output.csv'.
 # csv format:
-# ROOM_ID ROOM_SIZE STUDENT_ID
+# ROOM_ID | ROOM_SIZE | STUDENT_ID
 def display_output(dorm):
 	with open('output.csv', 'wb') as output:
 	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
