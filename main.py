@@ -22,7 +22,7 @@ for i in range(100):
 
 for i in range(10):
 	fittest = get_fittest(mutations)
-
+	print("len(fittest) = " + str(len(fittest)))
 	mutations = []
 	for fit in fittest:
 		for j in range(10):
