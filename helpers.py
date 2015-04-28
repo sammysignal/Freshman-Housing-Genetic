@@ -183,7 +183,19 @@ def n_choose_2(n):
 	elif n == 6:
 		return 15
 
+# takes a dorm scheme and creates a list of lists with 
+# each student id and attribute
+# skips header row 
+# called 'input.csv'
+# adopted from http://stackoverflow.com/questions/22242181/csv-row-import-into-python-array
+def import_dorm(input.csv):
+	with open('input.csv') as f:
+		data = csv.reader(f)
+		skip = next(data)
+		print [map(float, l) for l in cr] #not sure how to output an array but this will print it
 
+		
+		
 # takes a dorm scheme and displays it in a csv file
 # called 'output.csv'.
 # csv format:
