@@ -1,4 +1,4 @@
-import dorm, student, layouts
+import student, layouts
 import random, copy, csv
 
 ## Helper functions ##
@@ -19,6 +19,7 @@ def dorm_size_by_name(dorm_name):
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
 	from room import Room
+	import dorm
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
 	if dorm_size_by_name(dorm_name) != len(students):
@@ -79,9 +80,9 @@ def switch_items(list_a, list_b):
 
 ## Sammy's attempt. ##
 def mutate(d):
-	dorm = copy.deepcopy(d)
+	drm = copy.deepcopy(d)
 	weighted_rooms = []
-	for rm in dorm.rooms:
+	for rm in drm.rooms:
 		for i in range(rm.size):
 			weighted_rooms.append(rm)
 	rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
@@ -89,7 +90,7 @@ def mutate(d):
 	while (rm1 == rm2):
 		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	switch_items(rm1.students, rm2.students)
-	return dorm
+	return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -198,7 +199,7 @@ def n_choose_2(n):
 # csv format:
 # STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
 def import_students(filename):
-	with open(filename) as f:
+	with open(filename, 'rb') as f:
 		reader = csv.reader(f)
 		lst = list(reader)
 		first = True
@@ -228,7 +229,7 @@ def import_students(filename):
 # STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
 def export_students(student_list):
 	student_list.sort(key=lambda x: x.student_id, reverse=False)
-	with open(filename) as f:
+	with open('csv/input.csv', 'wb') as f:
 		writer = csv.writer(f)
 		writer.writerow(["Student ID", "Gender", "Sleep", "Roommate Preference",
 						"Cleanliness", "Sociability"])
@@ -244,11 +245,11 @@ def export_students(student_list):
 # called 'output.csv'.
 # csv format:
 # ROOM_ID | ROOM_SIZE | STUDENT_ID
-def display_output(dorm):
-	with open('output.csv', 'wb') as output:
+def display_output(d):
+	with open('csv/output.csv', 'wb') as output:
 	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-	    for rm in dorm.rooms:
+	    for rm in d.rooms:
 	    	for st in rm.students:
 	    		student_writer.writerow([rm.room_id, rm.room_size, st.student_id])
 
@@ -269,8 +270,8 @@ def test_get_fittest():
 	dorm_name = "Apley"
 	sz = dorm_size_by_name(dorm_name)
 	students = generate_students(sz)
-	dorm = generate_scheme(dorm_name, students)
-	print(dorm.dorm_fitness())
+	d = generate_scheme(dorm_name, students)
+	print(d.dorm_fitness())
 
 
 def run_tests():
