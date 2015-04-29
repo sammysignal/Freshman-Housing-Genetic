@@ -1,4 +1,5 @@
-import Dorm, Student, Helpers
+import student
+from helpers import compatibility, n_choose_2
 import copy
 
 # Class that descibes a room in a dorm.
@@ -24,16 +25,16 @@ class Room:
 	# CRUCIAL FUNCTION
 	def room_fitness(self):
 		if self.size == 1:
-			return Helpers.compatibility(Student.Student(), Student.Student())
+			return compatibility(student.Student(), student.Student())
 		total = 0
 		st = copy.deepcopy(self.students)
 		for i in range(self.size):
 			last = st.pop()
 			for comp in st:
-				total = total + Helpers.compatibility(last, comp)
+				total = total + compatibility(last, comp)
 			st.insert(0, last)
 
-		return total / float(Helpers.n_choose_2(self.size))
+		return total / float(n_choose_2(self.size))
 
 
 

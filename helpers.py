@@ -1,5 +1,5 @@
-import Dorm, Student, Room, Layouts
-import random, copy
+import student, layouts
+import random, copy, csv
 
 ## Helper functions ##
 
@@ -7,7 +7,7 @@ import random, copy
 # the name of that dorm. See Layouts.py.
 def dorm_size_by_name(dorm_name):
 	total = 0
-	dorm_scheme = Layouts.layouts[dorm_name]
+	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	for num in dorm_scheme:
 		total = total + (room_size * num)
@@ -18,12 +18,14 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
+	from room import Room
+	import dorm
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
 	if dorm_size_by_name(dorm_name) != len(students):
 		raise Exception("Dorm size and number of students don't match")
 	rooms = []
-	dorm_scheme = Layouts.layouts[dorm_name]
+	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
 	for num in dorm_scheme:
@@ -31,11 +33,11 @@ def generate_scheme(dorm_name, students):
 			students_per_room = []
 			for i in range(room_size):
 				students_per_room.append(students.pop())
-			rooms.append(Room.Room(students_per_room, counter))
+			rooms.append(Room(students_per_room, counter))
 			counter = counter + 1
 		room_size = room_size + 1
 
-	return Dorm.Dorm(dorm_name, rooms, Layouts.accessible[dorm_name])
+	return dorm.Dorm(dorm_name, rooms, layouts.Accessible[dorm_name])
 	
 
 # In our implementation, Dorms get crossed over,
@@ -78,17 +80,17 @@ def switch_items(list_a, list_b):
 
 ## Sammy's attempt. ##
 def mutate(d):
-	dorm = copy.deepcopy(d)
+	drm = copy.deepcopy(d)
 	weighted_rooms = []
-	for room in dorm.rooms:
-		for i in range(room.size):
-			weighted_rooms.append(room)
+	for rm in drm.rooms:
+		for i in range(rm.size):
+			weighted_rooms.append(rm)
 	rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	while (rm1 == rm2):
 		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	switch_items(rm1.students, rm2.students)
-	return dorm
+	return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -106,12 +108,27 @@ def get_fittest(dorm_lst):
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
 	num = (len(dorm_lst) / 10)
 	if num == 0:
-		return dorm_lst[0]
+		return [dorm_lst[0]]
 	else:
 		ret = []
 		for i in range(num):
 			ret.append(dorm_lst[i])
 		return ret
+
+# Gets the one fittest dorm scheme in a list of
+# filled dorms. Returns the dorm object.
+def get_absolute_fittest(dorm_lst):
+	if dorm_lst == []:
+		return []
+	for d in dorm_lst:
+		if not d.has_fitness:
+			# does this change the objects in the list
+			# in place?
+			d.dorm_fitness()
+
+	# sort list descending by fitness value
+	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
+	return dorm_lst[0]
 
 
 # Determines the compatibility level of a given two students.
@@ -151,7 +168,7 @@ def generate_students(n):
 		c = int(random.random() * 10) + 1
 		soc = int(random.random() * 10) + 1
 		s_id = i
-		st = Student.Student(male, sl, r, c, soc, s_id)
+		st = student.Student(male, sl, r, c, soc, s_id)
 		lst.append(st)
 	return lst
 
@@ -171,7 +188,78 @@ def n_choose_2(n):
 		return 10
 	elif n == 6:
 		return 15
-	
+
+# takes a dorm scheme and creates a list of lists with 
+# each student id and attribute
+# skips header row 
+# called 'input.csv'
+# adopted from http://stackoverflow.com/questions/22242181/csv-row-import-into-python-array
+# def import_dorm(input.csv):
+# 	with open('input.csv') as f:
+# 		data = csv.reader(f)
+# 		skip = next(data)
+# 		print [map(float, l) for l in cr] #not sure how to output an array but this will print it
+
+# takes a csv file name and returns a list of students.
+# csv format:
+# STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
+def import_students(filename):
+	with open(filename, 'rb') as f:
+		reader = csv.reader(f)
+		lst = list(reader)
+		first = True
+		student_lst = []
+		for row in lst:
+			if first != True:
+				st = student.Student()
+				for i in range(6):
+					if i == 0:
+						st.student_id = row[i]
+					if i == 1:
+						st.gender = row[i]
+					if i == 2:
+						st.sleep = row[i]
+					if i == 3:
+						st.roommates = row[i]
+					if i == 4:
+						st.cleanliness = row[i]
+					if i == 5:
+						st.sociability = row[i]
+				student_lst.append(st)
+			first = False
+		return student_lst
+
+# takes a list of students and writes them to a csv file.
+# csv format:
+# STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
+def export_students(student_list):
+	student_list.sort(key=lambda x: x.student_id, reverse=False)
+	with open('csv/input.csv', 'wb') as f:
+		writer = csv.writer(f)
+		writer.writerow(["Student ID", "Gender", "Sleep", "Roommate Preference",
+						"Cleanliness", "Sociability"])
+		for st in student_list:
+			writer.writerow(
+				[st.student_id, st.gender, st.sleep, st.roommates, st.cleanliness, st.sociability]
+			)
+	f.close()
+
+		
+		
+# takes a dorm scheme and displays it in a csv file
+# called 'output.csv'.
+# csv format:
+# ROOM_ID | ROOM_SIZE | STUDENT_ID
+def display_output(d):
+	with open('csv/output.csv', 'wb') as output:
+	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+	    for rm in d.rooms:
+	    	for st in rm.students:
+	    		student_writer.writerow([rm.room_id, rm.room_size, st.student_id])
+
+	    output.close()
+
 #############
 ### tests ###
 #############
@@ -190,10 +278,20 @@ def test_generate_students():
 	a = generate_students(100)
 	assert (len(a) == 100)
 
+def test_get_fittest():
+	dorm_name = "Apley"
+	sz = dorm_size_by_name(dorm_name)
+	students = generate_students(sz)
+	d = generate_scheme(dorm_name, students)
+	print(d.dorm_fitness())
+
+
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
 	test_compatibility()
+	test_get_fittest()
 
-run_tests()
+
+#run_tests()
 

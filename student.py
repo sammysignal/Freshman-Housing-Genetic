@@ -1,4 +1,3 @@
-import Dorm, Room
 
 # Class that descibes a student and his/her attributes.
 class Student:
@@ -26,5 +25,4 @@ class Student:
 
 
 		self.student_id = student_id
-
-
+		
