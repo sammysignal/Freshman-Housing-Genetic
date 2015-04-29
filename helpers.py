@@ -223,6 +223,19 @@ def import_students(filename):
 			first = False
 		return student_lst
 
+# takes a list of students and writes them to a csv file.
+# csv format:
+# STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
+def export_students(student_list):
+	student_list.sort(key=lambda x: x.student_id, reverse=False)
+	with open(filename) as f:
+		writer = csv.writer(f)
+		for st in student_list:
+			writer.writerow(
+				[st.student_id, st.gender, st.sleep, st.roommates, st.cleanliness, st.sociability]
+			)
+	f.close()
+
 		
 		
 # takes a dorm scheme and displays it in a csv file
