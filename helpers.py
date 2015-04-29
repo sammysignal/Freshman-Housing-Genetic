@@ -137,10 +137,10 @@ def get_absolute_fittest(dorm_lst):
 # Rating system out of 10, with 10 being the best possible score
 # CRUCIAL FUNCTION
 def gscore(x, y):
-		if (x == y):
-			return 10.0
-		else:
-			return 0.0
+	if (x == y):
+		return 10.0
+	else:
+		return 0.0
 
 def pscore(x,y):
 	return (10.0 - abs(float(x) - float(y)))
@@ -149,7 +149,6 @@ def rscore(x,y):
 	return (10.0 - (2.0 * abs(float(x) - float(y))))
 
 def compatibility(student_a, student_b):
-	
 	a = (0.5 * gscore(student_a.gender, student_b.gender))
 	b = (0.15 * pscore(student_a.sleep, student_b.sleep))
 	c = (0.15 * pscore(student_a.cleanliness, student_b.cleanliness))
