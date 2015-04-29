@@ -119,22 +119,27 @@ def get_fittest(dorm_lst):
 # attribute.
 # Rating system out of 10, with 10 being the best possible score
 # CRUCIAL FUNCTION
-def compatibility(student_a, student_b):
-	def gscore(x, y):
+def gscore(x, y):
 		if (x == y):
 			return 10.0
-		elif (x != y):
+		else:
 			return 0.0
-	def pscore(x,y):
-		return 10.0 - abs(float(x) - float(y))
-	def rscore(x,y):
-		return 10.0 - (2.0 * abs(float(x) - float(y)))
+
+def pscore(x,y):
+	return (10.0 - abs(float(x) - float(y)))
+
+def rscore(x,y):
+	return (10.0 - (2.0 * abs(float(x) - float(y))))
+
+def compatibility(student_a, student_b):
+	
 	a = (0.5 * gscore(student_a.gender, student_b.gender))
 	b = (0.15 * pscore(student_a.sleep, student_b.sleep))
 	c = (0.15 * pscore(student_a.cleanliness, student_b.cleanliness))
 	d = (0.15 * pscore(student_a.sociability, student_b.sociability))
 	e = (0.05 * rscore(student_a.roommates, student_b.roommates))
-	return (a + b + c + d + e)
+	result = (a + b + c + d + e)
+	print result
 
 # Generates a list of n random students. 
 def generate_students(n):
@@ -167,10 +172,16 @@ def n_choose_2(n):
 	elif n == 6:
 		return 15
 	
-
 #############
 ### tests ###
 #############
+
+def test_compatibility():
+	a = Student.Student('f',7,3,8,9,1)
+	b = Student.Student('m',3,1,3,7,2)
+	compatibility(a,b)
+	#assert(compatibility(a,b) == 3.15)
+	# print(compatibility(a,b))
 
 def test_dorm_size_by_name():
 	assert(dorm_size_by_name("Apley") == 34)
@@ -182,7 +193,7 @@ def test_generate_students():
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
-
+	test_compatibility()
 
 run_tests()
 
