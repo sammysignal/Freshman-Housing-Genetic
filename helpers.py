@@ -230,6 +230,8 @@ def export_students(student_list):
 	student_list.sort(key=lambda x: x.student_id, reverse=False)
 	with open(filename) as f:
 		writer = csv.writer(f)
+		writer.writerow(["Student ID", "Gender", "Sleep", "Roommate Preference",
+						"Cleanliness", "Sociability"])
 		for st in student_list:
 			writer.writerow(
 				[st.student_id, st.gender, st.sleep, st.roommates, st.cleanliness, st.sociability]
