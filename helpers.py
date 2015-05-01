@@ -100,39 +100,70 @@ def mutate(d):
 	import dorm, room
 	drm = copy.deepcopy(d)
 
-	st_id_a = random.randrange(drm.count_students())
-	st_id_b = random.randrange(drm.count_students())
-	while st_id_a == st_id_b:
-		st_id_b = random.randrange(drm.count_students())
+	# st_id_a = random.randrange(drm.count_students())
+	# st_id_b = random.randrange(drm.count_students())
+	# while st_id_a == st_id_b:
+	# 	st_id_b = random.randrange(drm.count_students())
+
+	weighted_rooms = []
+	for rm in drm.rooms:
+		for i in range(rm.size):
+			weighted_rooms.append(rm)
+
+	index = random.randrange(len(weighted_rooms))
+	st_id_a = weighted_rooms[index].room_id
+	index2 = random.randrange(len(weighted_rooms))
+	while index == index2:
+		index2 = random.randrange(len(weighted_rooms))
+	st_id_b = weighted_rooms[index2].room_id
 
 
 	student_a = None
 	student_b = None
 	for rm in drm.rooms:
 		for s in rm.students:
-			print(s)
+			#print(s)
 			if s.student_id == st_id_a:
 				student_a = copy.deepcopy(s)
 			if s.student_id == st_id_b:
 				student_b = copy.deepcopy(s)
 
+	# for rm in drm.rooms:
+	# 	for s in rm.students:
+	# 		if s.student_id == st_id_a:
+	# 			#new_students = []
+	# 			for i in range(len(rm.students)):
+	# 				if rm.students[i].student_id == st_id_a:
+	# 					rm.students[i] = student_b
+	# 					#rm.students.pop(i)
+	# 					#rm.students.append(student_b)
+	# 		if s.student_id == st_id_b:
+	# 			#new_students = []
+	# 			for i in range(len(rm.students)):
+	# 				if rm.students[i].student_id == st_id_b:
+	# 					rm.students[i] = student_a
+	# 					# rm.students.pop(i)
+	# 					# rm.students.append(student_a)
+
 	for rm in drm.rooms:
-		for s in rm.students:
-			if s.student_id == st_id_a:
+		for i in range(len(rm.students)):
+			if rm.students[i].student_id == st_id_a:
 				#new_students = []
-				for i in range(len(rm.students)):
-					if rm.students[i].student_id == st_id_a:
-						rm.students[i] = student_b
+				rm.students[i] = student_b
 						#rm.students.pop(i)
 						#rm.students.append(student_b)
-			if s.student_id == st_id_b:
+			elif rm.students[i].student_id == st_id_b:
 				#new_students = []
-				for i in range(len(rm.students)):
-					if rm.students[i].student_id == st_id_b:
-						rm.students[i] = student_a
+				rm.students[i] = student_a
+
+
+	drm.dorm_fitness()
+	return drm
+
+
+
 						# rm.students.pop(i)
 						# rm.students.append(student_a)
-	return drm
 
 	# new_dorm = dorm.Dorm("Apley", [])
 	# rooms = []

@@ -6,10 +6,10 @@ import sys
 DORM_NAME = "Apley"
 INPUT_FILE = "csv/manual_input.csv"
 OUTPUT_FILE = "csv/manual_output.csv"
-MAX_ITER = 50
+MAX_ITER = 300
 MIN_FIT = 9.0
 
-population_size = 2
+population_size = 100
 
 
 
@@ -46,7 +46,6 @@ while iters < MAX_ITER:
 	
 	print(mutations[0].fitness)
 
-	print('new')
 
 	result_list = mutations + to_mutate
 
