@@ -155,7 +155,7 @@ def compatibility(student_a, student_b):
 	d = (0.15 * pscore(student_a.sociability, student_b.sociability))
 	e = (0.05 * rscore(student_a.roommates, student_b.roommates))
 	result = (a + b + c + d + e)
-	print result
+	return result
 
 # Generates a list of n random students. 
 def generate_students(n):
@@ -264,10 +264,10 @@ def display_output(d):
 #############
 
 def test_compatibility():
-	a = Student.Student('f',7,3,8,9,1)
-	b = Student.Student('m',3,1,3,7,2)
-	compatibility(a,b)
-	#assert(compatibility(a,b) == 3.15)
+	a = student.Student('f',7,3,8,9,1)
+	b = student.Student('m',3,1,3,7,2)
+	print(compatibility(a,b))
+	# assert(compatibility(a,b) == 3.15)
 	# print(compatibility(a,b))
 
 def test_dorm_size_by_name():
@@ -284,13 +284,11 @@ def test_get_fittest():
 	d = generate_scheme(dorm_name, students)
 	print(d.dorm_fitness())
 
-
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
 	test_compatibility()
 	test_get_fittest()
 
-
-#run_tests()
+run_tests()
 
