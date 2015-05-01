@@ -6,10 +6,10 @@ import sys
 DORM_NAME = "Apley"
 INPUT_FILE = "csv/manual_input.csv"
 OUTPUT_FILE = "csv/manual_output.csv"
-MAX_ITER = 50
+MAX_ITER = 150
 MIN_FIT = 9.0
 
-population_size = 2
+population_size = 300
 
 
 
@@ -26,31 +26,26 @@ scheme_list = [generate_scheme(DORM_NAME, students) for i in range(population_si
 #print(scheme_list[0].fitness)
 iters = 0
 while iters < MAX_ITER:
-	# crossovers = []
-	# for i in range(population_size):
-	# 	val = crossover(scheme_list[0], scheme_list[1])
-	# 	crossovers.append(val)
-	# 	first = scheme_list.pop(0)
-	# 	scheme_list.append(first)
+	print iters
+	crossovers = []
+	for i in range(population_size):
+		val = crossover(scheme_list[0], scheme_list[1])
+		crossovers.append(val)
+		first = scheme_list.pop(0)
+		scheme_list.append(first)
 
-	#to_mutate = scheme_list + crossovers
+	to_mutate = scheme_list + crossovers
 
 	#display_output(scheme_list[0],'csv/output.csv')
 
-	to_mutate = scheme_list
-
-
-	print(to_mutate[0].fitness)
+	#to_mutate = scheme_list
 
 	mutations = [mutate(i) for i in to_mutate]
 	
-	print(mutations[0].fitness)
-
-	print('new')
-
 	result_list = mutations + to_mutate
 
 	result_list.sort(key=lambda x: x.fitness, reverse=True)
+	print(result_list[0].fitness)
 	if result_list[0].fitness > MIN_FIT:
 		break
 

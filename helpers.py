@@ -50,11 +50,79 @@ def generate_scheme(dorm_name, students):
 
 # returns crossover of two dorm schemes
 # CRUCIAL FUNCTION
+
+# helper
+
+def get_room_by_student_id(d, st_id):
+	for rm in d.rooms:
+		for st in rm.students:
+			if st.student_id == st_id:
+				return rm
+	return None
+
+def get_student_by_id(d, st_id):
+	for rm in d.rooms:
+		for st in rm.students:
+			if st.student_id == st_id:
+				return copy.deepcopy(st)
+	return None
+
 def crossover(dorm_a, dorm_b):
-	return dorm_a
-	# TODOTODOTODOTODOTODOTODOTODOTODO
-	# TODOTODOTODOTODOTODOTODOTODOTODO
-	# TODOTODOTODOTODOTODOTODOTODOTODO
+	drm = copy.deepcopy(dorm_a)
+	lover_a = None
+	lover_b = None
+	for rm in dorm_b.rooms:
+		if rm.size > 1:
+			lover_a = rm.students[0].student_id
+			lover_b	= rm.students[1].student_id
+			break
+
+	room1 = get_room_by_student_id(dorm_a, lover_a)
+	room2 = get_room_by_student_id(dorm_a, lover_b)
+
+	swap_with_a_id = None
+	swap_with_b_id = None
+	if room1.size > 1:
+		for s in room1.students:
+			if s.student_id != lover_a:
+				swap_with_b_id = s.student_id
+				break
+	elif room2.size > 1:
+		for s in room2.students:
+			if s.student_id != lover_b:
+				swap_with_a_id = s.student_id
+				break
+	else:
+		return dorm_a
+
+	st_id_a = None
+	st_id_b = None
+	student_a = None
+	student_b = None
+	if swap_with_b_id:
+		st_id_a = swap_with_b_id
+		st_id_b = lover_b
+		student_a = get_student_by_id(drm, lover_b)
+		student_b = get_student_by_id(drm, swap_with_b_id)
+	elif swap_with_a_id:
+		st_id_a = swap_with_a_id
+		st_id_b = lover_a
+		student_a = get_student_by_id(drm, lover_a)
+		student_b = get_student_by_id(drm, swap_with_a_id)
+	
+	for rm in drm.rooms:
+		for i in range(len(rm.students)):
+			if rm.students[i].student_id == st_id_a:
+				#new_students = []
+				rm.students[i] = student_b
+						#rm.students.pop(i)
+						#rm.students.append(student_b)
+			elif rm.students[i].student_id == st_id_b:
+				#new_students = []
+				rm.students[i] = student_a
+
+	drm.dorm_fitness()
+	return drm
 
 
 # Helper for mutate that takes two lists,
@@ -100,47 +168,50 @@ def mutate(d):
 	import dorm, room
 	drm = copy.deepcopy(d)
 
-	st_id_a = random.randrange(drm.count_students())
-	st_id_b = random.randrange(drm.count_students())
-	while st_id_a == st_id_b:
-		st_id_b = random.randrange(drm.count_students())
+	# st_id_a = random.randrange(drm.count_students())
+	# st_id_b = random.randrange(drm.count_students())
+	# while st_id_a == st_id_b:
+	# 	st_id_b = random.randrange(drm.count_students())
 
-	print(st_id_a)
-	print(st_id_b)
+	weighted_rooms = []
+	for rm in drm.rooms:
+		for i in range(rm.size):
+			weighted_rooms.append(rm)
+
+	index = random.randrange(len(weighted_rooms))
+	st_id_a = weighted_rooms[index].room_id
+	index2 = random.randrange(len(weighted_rooms))
+	while index == index2:
+		index2 = random.randrange(len(weighted_rooms))
+	st_id_b = weighted_rooms[index2].room_id
 
 	student_a = None
 	student_b = None
 	test_bool = False
 	for rm in drm.rooms:
 		for s in rm.students:
-			#display_student(s)
 			if s.student_id == st_id_a:
 				test_bool = True
 				student_a = copy.deepcopy(s)
 			if s.student_id == st_id_b:
 				test_bool = True
 				student_b = copy.deepcopy(s)
-	if (not test_bool):
-		print "it's noen!!"
-	
+
 	for rm in drm.rooms:
-		for s in rm.students:
-			if s.student_id == st_id_a:
+		for i in range(len(rm.students)):
+			if rm.students[i].student_id == st_id_a:
 				#new_students = []
-				for i in range(len(rm.students)):
-					if rm.students[i].student_id == st_id_a:
-						rm.students[i] = student_b
+				rm.students[i] = student_b
 						#rm.students.pop(i)
 						#rm.students.append(student_b)
-			if s.student_id == st_id_b:
+			elif rm.students[i].student_id == st_id_b:
 				#new_students = []
-				for i in range(len(rm.students)):
-					if rm.students[i].student_id == st_id_b:
-						rm.students[i] = student_a
-						# rm.students.pop(i)
-						# rm.students.append(student_a)
+				rm.students[i] = student_a
+
+
 	drm.dorm_fitness()
 	return drm
+
 
 	# new_dorm = dorm.Dorm("Apley", [])
 	# rooms = []
