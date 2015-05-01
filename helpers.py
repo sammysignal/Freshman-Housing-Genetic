@@ -435,7 +435,8 @@ def export_students(student_list, filename):
 def display_output(d, filename):
 	with open(filename, 'wb') as output:
 	    student_writer = csv.writer(output, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
+	    student_writer.writerow(["Room ID", "Room Size", "Student ID", "Gender", "Sleep", 
+	    						"Roommates", "Cleanliness", "Sociability"])
 	    for rm in d.rooms:
 	    	for st in rm.students:
 	    		student_writer.writerow([rm.room_id, rm.size, st.student_id, 
@@ -470,7 +471,7 @@ def test_compatibility():
 
 	i = student.Student('m',0,0,0,0,6)
 	j = student.Student('f',10,5,10,10,7)
-	print compatibility(i,j)
+	assert(compatibility(i, j) < 1.0)
 	assert((x>y>z>k) == True)
 
 	# Identical students should have 

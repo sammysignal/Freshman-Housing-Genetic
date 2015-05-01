@@ -4,8 +4,8 @@ import sys
 # Settings
 
 DORM_NAME = "Apley"
-INPUT_FILE = "csv/manual_input.csv"
-OUTPUT_FILE = "csv/manual_output.csv"
+INPUT_FILE = "csv/auto_input.csv"
+OUTPUT_FILE = "csv/auto_output.csv"
 
 MAX_ITER = 100
 
@@ -16,15 +16,16 @@ population_size = 50
 
 
 # get the number of students that fit into the dorm.
-#d_size = dorm_size_by_name(DORM_NAME)
+d_size = dorm_size_by_name(DORM_NAME)
 
 # generate that many students.
-st = import_students(INPUT_FILE)
+#students = import_students(INPUT_FILE)
 
+students = generate_students(d_size)
 
 # generate a single scheme
-scheme_list = [generate_scheme(DORM_NAME, st) for i in range(population_size)]
-# print(scheme_list[0].fitness)
+scheme_list = [generate_scheme(DORM_NAME, students) for i in range(population_size)]
+#print(scheme_list[0].fitness)
 iters = 0
 while iters < MAX_ITER:
 	print iters
