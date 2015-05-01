@@ -33,9 +33,10 @@ class Room:
 			last = st.pop()
 			for comp in st:
 				total = total + compatibility(last, comp)
-			st.insert(0, last)
-
-		return total / float(n_choose_2(self.size))
+			#st.insert(0, last)
+		val = (total / float(n_choose_2(self.size)))
+		self.fitness = val
+		return val
 
 
 

@@ -20,11 +20,12 @@ class Dorm:
 		# number of compatabilities of that dorm to get a weighted average fitness.
 		for rm in self.rooms:
 			if rm.size > 1:
-				total = total + (rm.room_fitness() * n_choose_2(rm.size))
+				total = total + (rm.fitness * n_choose_2(rm.size))
 
 		# Once done, set fitness value so it
 		# does not have to be calculated again
 		f = (total / (float(self.count_compatabilites())))
+		self.fitness = f
 		return f
 
 	def count_compatabilites(self):
@@ -38,21 +39,29 @@ class Dorm:
 	def count_rooms(self):
 		return len(self.rooms)
 
-	def count_men(self):
-		s = 0
+	def singles(self):
+		counter = 0
 		for rm in self.rooms:
-			for student in rm.students:
-				if student.gender == 'm':
-					s = s + rm.size
-		return s
+			if rm.size == 1:
+				counter = counter + 1
+		return counter
 
-	def count_women(self):
-		s = 0
-		for rm in self.rooms:
-			for student in rm.students:
-				if student.gender == 'f':
-					s = s + rm.size
-		return s
+
+	# def count_men(self):
+	# 	s = 0
+	# 	for rm in self.rooms:
+	# 		for student in rm.students:
+	# 			if student.gender == 'm':
+	# 				s = s + rm.size
+	# 	return s
+
+	# def count_women(self):
+	# 	s = 0
+	# 	for rm in self.rooms:
+	# 		for student in rm.students:
+	# 			if student.gender == 'f':
+	# 				s = s + rm.size
+	# 	return s
 
 	def count_students(self):
 		s = 0

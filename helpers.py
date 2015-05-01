@@ -18,8 +18,8 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
-	import room
-	import dorm
+	import room, dorm
+	from random import shuffle
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
 	students_copy = copy.deepcopy(students)
@@ -29,6 +29,7 @@ def generate_scheme(dorm_name, students):
 	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
+	shuffle(students)
 	for num in dorm_scheme:
 		for i in range(num):
 			students_per_room = []
@@ -90,6 +91,7 @@ def mutate(d):
 	while (rm1 == rm2):
 		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	switch_items(rm1.students, rm2.students)
+	drm.dorm_fitness()
 	return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
@@ -248,11 +250,12 @@ def display_output(d, filename):
 
 	    output.close()
 
-# def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
-# 	population_size = 100
-# 	schemes = [generate_scheme(dorm_name, student_list) for i in range(population_size)]
-# 	for i in range(max_iter):
-# 		if 
+def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
+	population_size = 100
+	schemes = [generate_scheme(dorm_name, student_list) for i in range(population_size)]
+	for i in range(max_iter):
+		schemes.sort(key=lambda x: x.fitness, reverse=True)
+
 
 
 
