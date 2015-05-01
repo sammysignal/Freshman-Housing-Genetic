@@ -25,13 +25,19 @@ class Room:
 	# 	not even take singles into consideration.
 	# CRUCIAL FUNCTION
 	def room_fitness(self):
+		from helpers import display_student
 		if self.size == 1:
 			return compatibility(student.Student(), student.Student())
 		total = 0
 		st = copy.deepcopy(self.students)
+		print self.students
 		for i in range(self.size - 1):
 			last = st.pop()
 			for comp in st:
+				print comp
+				print last
+				display_student(comp)
+				display_student(last)
 				total = total + compatibility(last, comp)
 			#st.insert(0, last)
 		val = (total / float(n_choose_2(self.size)))

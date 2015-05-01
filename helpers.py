@@ -105,17 +105,24 @@ def mutate(d):
 	while st_id_a == st_id_b:
 		st_id_b = random.randrange(drm.count_students())
 
+	print(st_id_a)
+	print(st_id_b)
 
 	student_a = None
 	student_b = None
+	test_bool = False
 	for rm in drm.rooms:
 		for s in rm.students:
-			print(s)
+			#display_student(s)
 			if s.student_id == st_id_a:
+				test_bool = True
 				student_a = copy.deepcopy(s)
 			if s.student_id == st_id_b:
+				test_bool = True
 				student_b = copy.deepcopy(s)
-
+	if (not test_bool):
+		print "it's noen!!"
+	
 	for rm in drm.rooms:
 		for s in rm.students:
 			if s.student_id == st_id_a:
@@ -132,6 +139,7 @@ def mutate(d):
 						rm.students[i] = student_a
 						# rm.students.pop(i)
 						# rm.students.append(student_a)
+	drm.dorm_fitness()
 	return drm
 
 	# new_dorm = dorm.Dorm("Apley", [])
