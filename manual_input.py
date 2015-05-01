@@ -1,5 +1,5 @@
 from helpers import *
-import sys
+import sys, copy
 
 # Settings
 
@@ -19,10 +19,9 @@ population_size = 50
 #d_size = dorm_size_by_name(DORM_NAME)
 
 # generate that many students.
-st = import_students(INPUT_FILE)
+st = copy.deepcopy(import_students(INPUT_FILE))
 
-
-# generate a single scheme
+# generate a list of schemes
 scheme_list = [generate_scheme(DORM_NAME, st) for i in range(population_size)]
 # print(scheme_list[0].fitness)
 iters = 0
@@ -61,7 +60,7 @@ while iters < MAX_ITER:
 
 # end of loop
 
-
+print("Wrote result to " + OUTPUT_FILE)
 display_output(result_list[0], OUTPUT_FILE)
 
 

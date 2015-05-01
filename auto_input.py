@@ -62,7 +62,7 @@ while iters < MAX_ITER:
 
 # end of loop
 
-
+print("Wrote result to " + OUTPUT_FILE)
 display_output(result_list[0], OUTPUT_FILE)
 
 
