@@ -9,7 +9,8 @@ OUTPUT_FILE = "csv/manual_output.csv"
 MAX_ITER = 50
 MIN_FIT = 9.0
 
-population_size = 1
+population_size = 2
+
 
 
 # get the number of students that fit into the dorm.
@@ -38,6 +39,7 @@ while iters < MAX_ITER:
 
 	to_mutate = scheme_list
 
+
 	print(to_mutate[0].fitness)
 
 	mutations = [mutate(i) for i in to_mutate]
@@ -52,12 +54,10 @@ while iters < MAX_ITER:
 	if result_list[0].fitness > MIN_FIT:
 		break
 
-	#print(result_list[0].fitness)
 	sys.stdout.flush()
 
 	scheme_list = result_list[:population_size]
-	#print(scheme_list[0].fitness)
-	#print(scheme_list[99].fitness)
+
 
 	iters = iters + 1
 

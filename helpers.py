@@ -3,6 +3,10 @@ import random, copy, csv
 
 ## Helper functions ##
 
+def display_student(s):
+	a = [s.student_id, s.gender, s.sleep, s.roommates, s.cleanliness, s.sociability]
+	print a
+
 # gets the number of students that can fit in a dorm by
 # the name of that dorm. See Layouts.py.
 def dorm_size_by_name(dorm_name):
@@ -29,7 +33,7 @@ def generate_scheme(dorm_name, students):
 	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
-	shuffle(students)
+	shuffle(students_copy)
 	for num in dorm_scheme:
 		for i in range(num):
 			students_per_room = []
@@ -128,7 +132,6 @@ def mutate(d):
 						rm.students[i] = student_a
 						# rm.students.pop(i)
 						# rm.students.append(student_a)
-	drm.dorm_fitness()
 	return drm
 
 	# new_dorm = dorm.Dorm("Apley", [])
