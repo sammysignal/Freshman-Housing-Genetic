@@ -47,7 +47,10 @@ def generate_scheme(dorm_name, students):
 # returns crossover of two dorm schemes
 # CRUCIAL FUNCTION
 def crossover(dorm_a, dorm_b):
-	pass
+	return dorm_a
+	# TODOTODOTODOTODOTODOTODOTODOTODO
+	# TODOTODOTODOTODOTODOTODOTODOTODO
+	# TODOTODOTODOTODOTODOTODOTODOTODO
 
 
 # Helper for mutate that takes two lists,
@@ -86,13 +89,25 @@ def mutate(d):
 	for rm in drm.rooms:
 		for i in range(rm.size):
 			weighted_rooms.append(rm)
-	rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
-	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
-	while (rm1 == rm2):
-		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+
+	index = random.randrange(len(weighted_rooms))
+	rm1 = weighted_rooms[index]
+	index2 = random.randrange(len(weighted_rooms))
+	while index == index2:
+		index2 = random.randrange(len(weighted_rooms))
+
+	rm2 = weighted_rooms[index2]
+
 	switch_items(rm1.students, rm2.students)
-	drm.dorm_fitness()
 	return drm
+
+	# rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	# rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	# while (rm1 == rm2):
+	# 	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
+	# switch_items(rm1.students, rm2.students)
+	# drm.dorm_fitness()
+	# return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -246,7 +261,7 @@ def display_output(d, filename):
 
 	    for rm in d.rooms:
 	    	for st in rm.students:
-	    		student_writer.writerow([rm.room_id, rm.room_size, st.student_id])
+	    		student_writer.writerow([rm.room_id, rm.size, st.student_id])
 
 	    output.close()
 
