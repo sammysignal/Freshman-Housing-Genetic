@@ -21,8 +21,6 @@ class Room:
 	# compaitibility values, and these must be averaged to get the
 	# total fitness of the room. 
 	## A room with n students will have n-choose-2 compatibility values.
-	# TODO what is the fitness of a single? Sammy thinks we should
-	# 	not even take singles into consideration.
 	# CRUCIAL FUNCTION
 	def room_fitness(self):
 		from helpers import display_student
@@ -38,9 +36,3 @@ class Room:
 		val = (total / float(n_choose_2(self.size)))
 		self.fitness = val
 		return val
-
-
-#def run_tests():
-#	pass
-
-#run_tests()

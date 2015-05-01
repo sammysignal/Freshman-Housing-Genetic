@@ -48,10 +48,7 @@ def generate_scheme(dorm_name, students):
 # In our implementation, Dorms get crossed over,
 # and then mutated, emulating actual genetics.
 
-# returns crossover of two dorm schemes
-# CRUCIAL FUNCTION
-
-# helper
+# helpers for crossover
 
 def get_room_by_student_id(d, st_id):
 	for rm in d.rooms:
@@ -67,6 +64,14 @@ def get_student_by_id(d, st_id):
 				return copy.deepcopy(st)
 	return None
 
+# Crossover takes two dorm schemes and returns
+# the "crossover" of these schemes. To do this,
+# we look at which two students are together in
+# one dorm scheme, and then manually put those
+# two students together in the other dorm scheme.
+
+# This is a crossover because it is getting information 
+# from one dorm scheme and applying it to another.
 def crossover(dorm_a, dorm_b):
 	drm = copy.deepcopy(dorm_a)
 	lover_a = None
@@ -140,38 +145,10 @@ def switch_items(list_a, list_b):
 # with slight modifications, namely that two students
 # of the same gender have been switched between rooms
 # CRUCIAL FUNCTION
-
-# def mutate(self, dorm_name=""):
-# 	student_a, student_b = random.sample(Dorm.Dorm(rooms), 2)
-# 	a[student_a], a[student_b] = a[student_b], a[student_a]
-
-	
-# 	student_gender = [item for item in self.rooms if (item[0] == male)]
-# 	random.sample(student_gender, 2)
-
-# 	student_a = random.choice(self.rooms)
-# 	student_b = random.choice(self.rooms)
-
-# 	new_dorm = [item for item in new_dorm if item[2] >= 5 or item[3] >= 0.3]
-
-## Sammy's attempt. ##
-
-# FOR TESTING
-# from helpers import *
-# s = generate_students(34)
-# a = [generate_scheme('Apley', s) for i in range(10)]
-# f = [i.fitness for i in a]
-# a_m = [mutate(i) for i in a]
-# f_m = [i.fitness for i in a_m]
-
 def mutate(d):
 	import dorm, room
 	drm = copy.deepcopy(d)
 
-	# st_id_a = random.randrange(drm.count_students())
-	# st_id_b = random.randrange(drm.count_students())
-	# while st_id_a == st_id_b:
-	# 	st_id_b = random.randrange(drm.count_students())
 
 	weighted_rooms = []
 	for rm in drm.rooms:
@@ -213,78 +190,6 @@ def mutate(d):
 	return drm
 
 
-	# new_dorm = dorm.Dorm("Apley", [])
-	# rooms = []
-	# to_be_exchanged = None
-	# exchanged_id = None
-	# for rm in drm.rooms:
-	# 	rm_students = []
-	# 	for s in rm.students:
-	# 		if s.student_id == st_id_1:
-	# 			if to_be_exchanged == None:
-	# 				to_be_exchanged = s
-	# 				exchanged_id = st_id_1
-	# 			else:
-
-
-	# 		if s.student_id == st_id_2:
-	# 			if to_be_exchanged == None:
-	# 				to_be_exchanged = s
-	# 				exchanged_id = st_id_2
-
-	# 	new_room = room.Room(rm_students, rm.room_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	# weighted_rooms = []
-	# for rm in drm.rooms:
-	# 	for i in range(rm.size):
-	# 		weighted_rooms.append(rm)
-
-	# index = random.randrange(len(weighted_rooms))
-	# rm1 = weighted_rooms[index].room_id
-	# index2 = random.randrange(len(weighted_rooms))
-	# while index == index2:
-	# 	index2 = random.randrange(len(weighted_rooms))
-
-	# rm2 = weighted_rooms[index2].room_id
-
-	# room1 = None
-	# room2 = None
-	# for rm in drm.rooms:
-	# 	if rm.room_id == rm1:
-	# 		room1 = rm
-	# 	if rm.room_id == rm2:
-	# 		room2 = rm
-
-	# switch_items(room1.students, room2.students)
-	# return drm
-
-
-
-
-
-	# rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
-	# rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
-	# while (rm1 == rm2):
-	# 	rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
-	# switch_items(rm1.students, rm2.students)
-	# drm.dorm_fitness()
-	# return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
 # filled dorms. Returns items in a list.
@@ -371,16 +276,6 @@ def n_choose_2(n):
 	elif n == 6:
 		return 15
 
-# takes a dorm scheme and creates a list of lists with 
-# each student id and attribute
-# skips header row 
-# called 'input.csv'
-# adopted from http://stackoverflow.com/questions/22242181/csv-row-import-into-python-array
-# def import_dorm(input.csv):
-# 	with open('input.csv') as f:
-# 		data = csv.reader(f)
-# 		skip = next(data)
-# 		print [map(float, l) for l in cr] #not sure how to output an array but this will print it
 
 # takes a csv file name and returns a list of students.
 # csv format:
@@ -392,6 +287,7 @@ def import_students(filename):
 		first = True
 		student_lst = []
 		for row in lst:
+			# Skip the header row.
 			if first != True:
 				st = student.Student()
 				for i in range(6):
@@ -444,19 +340,12 @@ def display_output(d, filename):
 
 	    output.close()
 
-def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
-	population_size = 100
-	schemes = [generate_scheme(dorm_name, student_list) for i in range(population_size)]
-	for i in range(max_iter):
-		schemes.sort(key=lambda x: x.fitness, reverse=True)
-
-
 
 
 #############
 ### tests ###
 #############
-#gender='m', sleep=5, roommates=0, cleanliness=5, sociability=5, student_id=0):
+
 
 def test_compatibility():
 	a = student.Student('m',1,1,1,1,1)
@@ -485,18 +374,11 @@ def test_generate_students():
 	a = generate_students(100)
 	assert (len(a) == 100)
 
-# def test_get_fittest():
-# 	dorm_name = "Apley"
-# 	sz = dorm_size_by_name(dorm_name)
-# 	students = generate_students(sz)
-# 	d = generate_scheme(dorm_name, students)
-# 	print(d.dorm_fitness())
 
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
 	test_compatibility()
-	#test_get_fittest()
 
 run_tests()
 
