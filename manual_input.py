@@ -33,18 +33,19 @@ while iters < MAX_ITER:
 	to_mutate = scheme_list + crossovers
 
 	mutations = [mutate(i) for i in to_mutate]
+	print(mutations[0].fitness)
+	print(to_mutate[0].fitness)
 
 	result_list = mutations + to_mutate
 
 	result_list.sort(key=lambda x: x.fitness, reverse=True)
-
 	if result_list[0].fitness > MIN_FIT:
 		break
 
 	print(result_list[0].fitness)
 	sys.stdout.flush()
 
-	result_list[:100]
+	scheme_list = scheme_list[:100]
 
 	iters = iters + 1
 

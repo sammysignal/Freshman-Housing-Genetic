@@ -20,7 +20,7 @@ class Dorm:
 		# number of compatabilities of that dorm to get a weighted average fitness.
 		for rm in self.rooms:
 			if rm.size > 1:
-				total = total + (rm.fitness * n_choose_2(rm.size))
+				total = total + (rm.room_fitness() * n_choose_2(rm.size))
 
 		# Once done, set fitness value so it
 		# does not have to be calculated again

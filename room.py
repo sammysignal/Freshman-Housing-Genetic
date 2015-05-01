@@ -29,7 +29,7 @@ class Room:
 			return compatibility(student.Student(), student.Student())
 		total = 0
 		st = copy.deepcopy(self.students)
-		for i in range(self.size):
+		for i in range(self.size - 1):
 			last = st.pop()
 			for comp in st:
 				total = total + compatibility(last, comp)
