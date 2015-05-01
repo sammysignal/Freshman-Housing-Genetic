@@ -18,25 +18,26 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
-	import room
-	import dorm
+	import room, dorm
+	from random import shuffle
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
+	students_copy = copy.deepcopy(students)
 	if dorm_size_by_name(dorm_name) != len(students):
 		raise Exception("Dorm size and number of students don't match")
 	rooms = []
 	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
+	shuffle(students)
 	for num in dorm_scheme:
 		for i in range(num):
 			students_per_room = []
 			for i in range(room_size):
-				students_per_room.append(students.pop())
+				students_per_room.append(students_copy.pop())
 			rooms.append(room.Room(students_per_room, counter))
 			counter = counter + 1
 		room_size = room_size + 1
-
 	return dorm.Dorm(dorm_name, rooms, layouts.Accessible[dorm_name])
 	
 
@@ -90,6 +91,7 @@ def mutate(d):
 	while (rm1 == rm2):
 		rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	switch_items(rm1.students, rm2.students)
+	drm.dorm_fitness()
 	return drm
 
 # Gets the fittest 10% of dorm schemes in a list of
@@ -97,12 +99,6 @@ def mutate(d):
 def get_fittest(dorm_lst):
 	if dorm_lst == []:
 		return []
-	for d in dorm_lst:
-		if not d.has_fitness:
-			# does this change the objects in the list
-			# in place?
-			d.dorm_fitness()
-
 
 	# sort list descending by fitness value
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
@@ -120,11 +116,6 @@ def get_fittest(dorm_lst):
 def get_absolute_fittest(dorm_lst):
 	if dorm_lst == []:
 		return []
-	for d in dorm_lst:
-		if not d.has_fitness:
-			# does this change the objects in the list
-			# in place?
-			d.dorm_fitness()
 
 	# sort list descending by fitness value
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
@@ -259,6 +250,15 @@ def display_output(d, filename):
 
 	    output.close()
 
+def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
+	population_size = 100
+	schemes = [generate_scheme(dorm_name, student_list) for i in range(population_size)]
+	for i in range(max_iter):
+		schemes.sort(key=lambda x: x.fitness, reverse=True)
+
+
+
+
 #############
 ### tests ###
 #############
@@ -279,6 +279,10 @@ def test_compatibility():
 	j = student.Student('f',10,5,10,10,7)
 	print compatibility(i,j)
 	assert((x>y>z>k) == True)
+
+	# Identical students should have 
+	# ideal compatibility of 10.0
+	assert(compatibility(a, a) > 9.99)
 
 def test_dorm_size_by_name():
 	assert(dorm_size_by_name("Apley") == 34)
