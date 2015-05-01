@@ -262,13 +262,19 @@ def display_output(d):
 #############
 ### tests ###
 #############
+#gender='m', sleep=5, roommates=0, cleanliness=5, sociability=5, student_id=0):
 
 def test_compatibility():
-	a = student.Student('f',7,3,8,9,1)
-	b = student.Student('m',3,1,3,7,2)
-	print(compatibility(a,b))
-	# assert(compatibility(a,b) == 3.15)
-	# print(compatibility(a,b))
+	a = student.Student('m',1,1,1,1,1)
+	b = student.Student('m',1,1,1,1,2)
+	c = student.Student('m',5,3,5,5,5)
+	d = student.Student('m',10,5,10,10,10)
+	e = student.Student('f',1,1,1,1,1)
+	x = compatibility(a,b)
+	y = compatibility(a,c)
+	z = compatibility(a,d)
+	k = compatibility(a,e)
+	assert((x>y>z>k) == True)
 
 def test_dorm_size_by_name():
 	assert(dorm_size_by_name("Apley") == 34)
@@ -288,7 +294,7 @@ def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
 	test_compatibility()
-	test_get_fittest()
+	#test_get_fittest()
 
 run_tests()
 
