@@ -22,6 +22,7 @@ def generate_scheme(dorm_name, students):
 	import dorm
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
+	students_copy = copy.deepcopy(students)
 	if dorm_size_by_name(dorm_name) != len(students):
 		raise Exception("Dorm size and number of students don't match")
 	rooms = []
@@ -32,11 +33,10 @@ def generate_scheme(dorm_name, students):
 		for i in range(num):
 			students_per_room = []
 			for i in range(room_size):
-				students_per_room.append(students.pop())
+				students_per_room.append(students_copy.pop())
 			rooms.append(room.Room(students_per_room, counter))
 			counter = counter + 1
 		room_size = room_size + 1
-
 	return dorm.Dorm(dorm_name, rooms, layouts.Accessible[dorm_name])
 	
 
@@ -97,12 +97,6 @@ def mutate(d):
 def get_fittest(dorm_lst):
 	if dorm_lst == []:
 		return []
-	for d in dorm_lst:
-		if not d.has_fitness:
-			# does this change the objects in the list
-			# in place?
-			d.dorm_fitness()
-
 
 	# sort list descending by fitness value
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
@@ -120,11 +114,6 @@ def get_fittest(dorm_lst):
 def get_absolute_fittest(dorm_lst):
 	if dorm_lst == []:
 		return []
-	for d in dorm_lst:
-		if not d.has_fitness:
-			# does this change the objects in the list
-			# in place?
-			d.dorm_fitness()
 
 	# sort list descending by fitness value
 	dorm_lst.sort(key=lambda x: x.fitness, reverse=True)
@@ -259,6 +248,14 @@ def display_output(d, filename):
 
 	    output.close()
 
+# def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
+# 	population_size = 100
+# 	schemes = [generate_scheme(dorm_name, student_list) for i in range(population_size)]
+# 	for i in range(max_iter):
+# 		if 
+
+
+
 #############
 ### tests ###
 #############
@@ -275,6 +272,10 @@ def test_compatibility():
 	z = compatibility(a,d)
 	k = compatibility(a,e)
 	assert((x>y>z>k) == True)
+
+	# Identical students should have 
+	# ideal compatibility of 10.0
+	assert(compatibility(a, a) > 9.99)
 
 def test_dorm_size_by_name():
 	assert(dorm_size_by_name("Apley") == 34)

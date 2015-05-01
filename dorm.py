@@ -9,8 +9,7 @@ class Dorm:
 		self.name = name
 		self.rooms = rooms
 		self.accessible = accessible
-		self.has_fitness = False
-		self.fitness = None
+		self.fitness = self.dorm_fitness()
 
 	# Gets the fitness value of the dorm based on its students.
 	def dorm_fitness(self):
@@ -26,8 +25,6 @@ class Dorm:
 		# Once done, set fitness value so it
 		# does not have to be calculated again
 		f = (total / (float(self.count_compatabilites())))
-		self.has_fitness = True
-		self.fitness = f
 		return f
 
 	def count_compatabilites(self):

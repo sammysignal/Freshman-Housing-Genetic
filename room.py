@@ -10,6 +10,7 @@ class Room:
 		self.students = students
 		self.size = len(students)
 		self.room_id = room_id
+		self.fitness = self.room_fitness()
 
 	## Gets the fitness for a given room. 
 	# To do this, the function finds the given compatibility of any
