@@ -19,13 +19,11 @@ population_size = 50
 d_size = dorm_size_by_name(DORM_NAME)
 
 # generate that many students.
-#students = import_students(INPUT_FILE)
+st = generate_students(d_size)
 
-students = generate_students(d_size)
+# generate a list of schemes
+scheme_list = [generate_scheme(DORM_NAME, st) for i in range(population_size)]
 
-# generate a single scheme
-scheme_list = [generate_scheme(DORM_NAME, students) for i in range(population_size)]
-#print(scheme_list[0].fitness)
 iters = 0
 while iters < MAX_ITER:
 	print iters
@@ -37,10 +35,6 @@ while iters < MAX_ITER:
 		scheme_list.append(first)
 
 	to_mutate = scheme_list + crossovers
-
-	#display_output(scheme_list[0],'csv/output.csv')
-
-	#to_mutate = scheme_list
 
 	mutations = [mutate(i) for i in to_mutate]
 	
