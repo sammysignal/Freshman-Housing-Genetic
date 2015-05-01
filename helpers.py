@@ -29,7 +29,7 @@ def generate_scheme(dorm_name, students):
 	dorm_scheme = layouts.Layouts[dorm_name]
 	room_size = 1
 	counter = 0
-	shuffle(students)
+	shuffle(students_copy)
 	for num in dorm_scheme:
 		for i in range(num):
 			students_per_room = []
@@ -127,7 +127,6 @@ def mutate(d):
 						rm.students[i] = student_a
 						# rm.students.pop(i)
 						# rm.students.append(student_a)
-	drm.dorm_fitness()
 	return drm
 
 
