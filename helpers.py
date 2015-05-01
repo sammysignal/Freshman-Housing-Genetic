@@ -93,22 +93,111 @@ def switch_items(list_a, list_b):
 # f_m = [i.fitness for i in a_m]
 
 def mutate(d):
+	import dorm, room
 	drm = copy.deepcopy(d)
-	weighted_rooms = []
+
+	st_id_a = random.randrange(drm.count_students())
+	st_id_b = random.randrange(drm.count_students())
+	while st_id_a == st_id_b:
+		st_id_b = random.randrange(drm.count_students())
+
+
+	student_a = None
+	student_b = None
 	for rm in drm.rooms:
-		for i in range(rm.size):
-			weighted_rooms.append(rm)
+		for s in rm.students:
+			if s.student_id == st_id_a:
+				student_a = copy.deepcopy(s)
+			if s.student_id == st_id_b:
+				student_b = copy.deepcopy(s)
 
-	index = random.randrange(len(weighted_rooms))
-	rm1 = weighted_rooms[index]
-	index2 = random.randrange(len(weighted_rooms))
-	while index == index2:
-		index2 = random.randrange(len(weighted_rooms))
-
-	rm2 = weighted_rooms[index2]
-
-	switch_items(rm1.students, rm2.students)
+	for rm in drm.rooms:
+		for s in rm.students:
+			if s.student_id == st_id_a:
+				#new_students = []
+				for i in range(len(rm.students)):
+					if rm.students[i].student_id == st_id_a:
+						rm.students[i] = student_b
+						#rm.students.pop(i)
+						#rm.students.append(student_b)
+			if s.student_id == st_id_b:
+				#new_students = []
+				for i in range(len(rm.students)):
+					if rm.students[i].student_id == st_id_b:
+						rm.students[i] = student_a
+						# rm.students.pop(i)
+						# rm.students.append(student_a)
+	drm.dorm_fitness()
 	return drm
+
+
+
+
+
+	# new_dorm = dorm.Dorm("Apley", [])
+	# rooms = []
+	# to_be_exchanged = None
+	# exchanged_id = None
+	# for rm in drm.rooms:
+	# 	rm_students = []
+	# 	for s in rm.students:
+	# 		if s.student_id == st_id_1:
+	# 			if to_be_exchanged == None:
+	# 				to_be_exchanged = s
+	# 				exchanged_id = st_id_1
+	# 			else:
+
+
+	# 		if s.student_id == st_id_2:
+	# 			if to_be_exchanged == None:
+	# 				to_be_exchanged = s
+	# 				exchanged_id = st_id_2
+
+	# 	new_room = room.Room(rm_students, rm.room_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	# weighted_rooms = []
+	# for rm in drm.rooms:
+	# 	for i in range(rm.size):
+	# 		weighted_rooms.append(rm)
+
+	# index = random.randrange(len(weighted_rooms))
+	# rm1 = weighted_rooms[index].room_id
+	# index2 = random.randrange(len(weighted_rooms))
+	# while index == index2:
+	# 	index2 = random.randrange(len(weighted_rooms))
+
+	# rm2 = weighted_rooms[index2].room_id
+
+	# room1 = None
+	# room2 = None
+	# for rm in drm.rooms:
+	# 	if rm.room_id == rm1:
+	# 		room1 = rm
+	# 	if rm.room_id == rm2:
+	# 		room2 = rm
+
+	# switch_items(room1.students, room2.students)
+	# return drm
+
+
+
+
 
 	# rm1 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
 	# rm2 = weighted_rooms.pop(random.randrange(len(weighted_rooms)))
