@@ -83,6 +83,15 @@ def switch_items(list_a, list_b):
 # 	new_dorm = [item for item in new_dorm if item[2] >= 5 or item[3] >= 0.3]
 
 ## Sammy's attempt. ##
+
+# FOR TESTING
+# from helpers import *
+# s = generate_students(34)
+# a = [generate_scheme('Apley', s) for i in range(10)]
+# f = [i.fitness for i in a]
+# a_m = [mutate(i) for i in a]
+# f_m = [i.fitness for i in a_m]
+
 def mutate(d):
 	drm = copy.deepcopy(d)
 	weighted_rooms = []
