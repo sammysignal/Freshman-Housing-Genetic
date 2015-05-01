@@ -15,24 +15,19 @@ Before matriculating at Harvard, all incoming freshman are required to take a ho
 
 **Helpers.py** Has a lot of core functionality in the following functions
   - crossover
-  	- Crossover occurs between two schemes of the same dorm. 
-  	- The "DNA" for a given schema can be interpreted as a list of student_ids.
-  	  - Thus, what does crossing over actually mean in our schema?
-  - Tests
-  	- Test your own function
+  - mutate
+  - compatibility
+  - generate_scheme
+  - generate_students
 
-  - interface
-  	1. file called input.csv 
-  	2. input function
-  		- reads a csv file and converts it to a list of student objects.
-  	3. output function
-  		- takes a Dorm scheme and displays it as a csv file
-  	4. python students -> csv students
-  		- used with generate_students. Takes a list of student objects and writes to a csv file in the same format as the input function requires.
-  	
-### Optional
-	1. More dorms
-	2. Test against other algorithm
+## Usage
+
+# Manual Input
+  For an administrator or someone who knows the values that they want to run the algorithm on, enter these students in "csv/manual_input.csv". Then run "manual_input.py" to execute the program, and view results in "csv/manual_output.csv"
+
+# Auto Input
+  If you just want to try out the algorithm yourself, run "auto_input.py", which generates random students that the algorithm is run on.
+
 
 
 

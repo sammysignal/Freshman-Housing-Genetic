@@ -46,23 +46,6 @@ class Dorm:
 				counter = counter + 1
 		return counter
 
-
-	# def count_men(self):
-	# 	s = 0
-	# 	for rm in self.rooms:
-	# 		for student in rm.students:
-	# 			if student.gender == 'm':
-	# 				s = s + rm.size
-	# 	return s
-
-	# def count_women(self):
-	# 	s = 0
-	# 	for rm in self.rooms:
-	# 		for student in rm.students:
-	# 			if student.gender == 'f':
-	# 				s = s + rm.size
-	# 	return s
-
 	def count_students(self):
 		s = 0
 		for rm in self.rooms:
