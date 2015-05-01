@@ -227,9 +227,9 @@ def import_students(filename):
 # takes a list of students and writes them to a csv file.
 # csv format:
 # STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
-def export_students(student_list):
+def export_students(student_list, filename):
 	student_list.sort(key=lambda x: x.student_id, reverse=False)
-	with open('csv/input.csv', 'wb') as f:
+	with open(filename, 'wb') as f:
 		writer = csv.writer(f)
 		writer.writerow(["Student ID", "Gender", "Sleep", "Roommate Preference",
 						"Cleanliness", "Sociability"])
@@ -245,8 +245,8 @@ def export_students(student_list):
 # called 'output.csv'.
 # csv format:
 # ROOM_ID | ROOM_SIZE | STUDENT_ID
-def display_output(d):
-	with open('csv/output.csv', 'wb') as output:
+def display_output(d, filename):
+	with open(filename, 'wb') as output:
 	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
 	    for rm in d.rooms:
