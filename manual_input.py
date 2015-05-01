@@ -6,10 +6,12 @@ import sys
 DORM_NAME = "Apley"
 INPUT_FILE = "csv/manual_input.csv"
 OUTPUT_FILE = "csv/manual_output.csv"
-MAX_ITER = 150
+
+MAX_ITER = 100
+
 MIN_FIT = 9.0
 
-population_size = 300
+population_size = 50
 
 
 
@@ -19,7 +21,7 @@ d_size = dorm_size_by_name(DORM_NAME)
 # generate that many students.
 #students = import_students(INPUT_FILE)
 
-students = generate_students(34)
+students = generate_students(d_size)
 
 # generate a single scheme
 scheme_list = [generate_scheme(DORM_NAME, students) for i in range(population_size)]
@@ -42,6 +44,7 @@ while iters < MAX_ITER:
 
 	mutations = [mutate(i) for i in to_mutate]
 	
+
 	result_list = mutations + to_mutate
 
 	result_list.sort(key=lambda x: x.fitness, reverse=True)

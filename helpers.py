@@ -431,14 +431,15 @@ def export_students(student_list, filename):
 # takes a dorm scheme and displays it in a csv file
 # called 'output.csv'.
 # csv format:
-# ROOM_ID | ROOM_SIZE | STUDENT_ID
+# ROOM_ID | ROOM_SIZE | STUDENT_ID | GENDER | SLEEP | ROOMMTES | CLEANLINESS | SOCIABILITY
 def display_output(d, filename):
 	with open(filename, 'wb') as output:
-	    student_writer = csv.writer(output, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+	    student_writer = csv.writer(output, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
 	    for rm in d.rooms:
 	    	for st in rm.students:
-	    		student_writer.writerow([rm.room_id, rm.size, st.student_id])
+	    		student_writer.writerow([rm.room_id, rm.size, st.student_id, 
+	    								st.gender, st.sleep, st.roommates, st.cleanliness, st.sociability])
 
 	    output.close()
 
