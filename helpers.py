@@ -130,10 +130,6 @@ def mutate(d):
 	drm.dorm_fitness()
 	return drm
 
-
-
-
-
 	# new_dorm = dorm.Dorm("Apley", [])
 	# rooms = []
 	# to_be_exchanged = None

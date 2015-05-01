@@ -6,35 +6,45 @@ import sys
 DORM_NAME = "Apley"
 INPUT_FILE = "csv/manual_input.csv"
 OUTPUT_FILE = "csv/manual_output.csv"
-MAX_ITER = 100
+MAX_ITER = 50
 MIN_FIT = 9.0
 
-population_size = 100
+population_size = 1
 
 
 # get the number of students that fit into the dorm.
 d_size = dorm_size_by_name(DORM_NAME)
 
 # generate that many students.
-students = import_students(INPUT_FILE)
+#students = import_students(INPUT_FILE)
+
+students = generate_students(34)
 
 # generate a single scheme
 scheme_list = [generate_scheme(DORM_NAME, students) for i in range(population_size)]
+#print(scheme_list[0].fitness)
 iters = 0
 while iters < MAX_ITER:
-	crossovers = []
-	for i in range(population_size):
-		val = crossover(scheme_list[0], scheme_list[1])
-		crossovers.append(val)
-		first = scheme_list.pop(0)
-		scheme_list.append(first)
+	# crossovers = []
+	# for i in range(population_size):
+	# 	val = crossover(scheme_list[0], scheme_list[1])
+	# 	crossovers.append(val)
+	# 	first = scheme_list.pop(0)
+	# 	scheme_list.append(first)
 
+	#to_mutate = scheme_list + crossovers
 
-	to_mutate = scheme_list + crossovers
+	#display_output(scheme_list[0],'csv/output.csv')
+
+	to_mutate = scheme_list
+
+	print(to_mutate[0].fitness)
 
 	mutations = [mutate(i) for i in to_mutate]
+	
 	print(mutations[0].fitness)
-	print(to_mutate[0].fitness)
+
+	print('new')
 
 	result_list = mutations + to_mutate
 
@@ -42,10 +52,12 @@ while iters < MAX_ITER:
 	if result_list[0].fitness > MIN_FIT:
 		break
 
-	print(result_list[0].fitness)
+	#print(result_list[0].fitness)
 	sys.stdout.flush()
 
-	scheme_list = scheme_list[:100]
+	scheme_list = result_list[:population_size]
+	#print(scheme_list[0].fitness)
+	#print(scheme_list[99].fitness)
 
 	iters = iters + 1
 
