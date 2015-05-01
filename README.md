@@ -22,11 +22,11 @@ Before matriculating at Harvard, all incoming freshman are required to take a ho
 
 ## Usage
 
-### Manual Input
-  For an administrator or someone who knows the values that they want to run the algorithm on, enter these students in "csv/manual_input.csv". Then run "manual_input.py" to execute the program, and view results in "csv/manual_output.csv"
-
 ### Auto Input
   If you just want to try out the algorithm yourself, run "auto_input.py", which generates random students that the algorithm is run on. view the results in "csv/auto_output.csv"
+
+#### Manual Input
+  There is also functionality for entering students manually in "manual_input.py"
 
 
 
