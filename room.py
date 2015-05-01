@@ -39,7 +39,7 @@ class Room:
 
 
 
-def run_tests():
-	pass
+#def run_tests():
+#	pass
 
-run_tests()
+#run_tests()

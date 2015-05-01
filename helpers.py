@@ -18,7 +18,7 @@ def dorm_size_by_name(dorm_name):
 # the dorm, and a list of students.
 # CRUCIAL FUNCTION
 def generate_scheme(dorm_name, students):
-	from room import Room
+	import room
 	import dorm
 	# first we need to grab students and build
 	# a random list of rooms  by gender.
@@ -33,7 +33,7 @@ def generate_scheme(dorm_name, students):
 			students_per_room = []
 			for i in range(room_size):
 				students_per_room.append(students.pop())
-			rooms.append(Room(students_per_room, counter))
+			rooms.append(room.Room(students_per_room, counter))
 			counter = counter + 1
 		room_size = room_size + 1
 
@@ -277,18 +277,18 @@ def test_generate_students():
 	a = generate_students(100)
 	assert (len(a) == 100)
 
-def test_get_fittest():
-	dorm_name = "Apley"
-	sz = dorm_size_by_name(dorm_name)
-	students = generate_students(sz)
-	d = generate_scheme(dorm_name, students)
-	print(d.dorm_fitness())
+# def test_get_fittest():
+# 	dorm_name = "Apley"
+# 	sz = dorm_size_by_name(dorm_name)
+# 	students = generate_students(sz)
+# 	d = generate_scheme(dorm_name, students)
+# 	print(d.dorm_fitness())
 
 def run_tests():
 	test_dorm_size_by_name()
 	test_generate_students()
 	test_compatibility()
-	test_get_fittest()
+	#test_get_fittest()
 
 run_tests()
 
