@@ -267,13 +267,17 @@ def display_output(d, filename):
 def test_compatibility():
 	a = student.Student('m',1,1,1,1,1)
 	b = student.Student('m',1,1,1,1,2)
-	c = student.Student('m',5,3,5,5,5)
-	d = student.Student('m',10,5,10,10,10)
-	e = student.Student('f',1,1,1,1,1)
+	c = student.Student('m',5,3,5,5,3)
+	d = student.Student('m',10,5,10,10,4)
+	e = student.Student('f',1,1,1,1,5)
 	x = compatibility(a,b)
 	y = compatibility(a,c)
 	z = compatibility(a,d)
 	k = compatibility(a,e)
+
+	i = student.Student('m',0,0,0,0,6)
+	j = student.Student('f',10,5,10,10,7)
+	print compatibility(i,j)
 	assert((x>y>z>k) == True)
 
 def test_dorm_size_by_name():
