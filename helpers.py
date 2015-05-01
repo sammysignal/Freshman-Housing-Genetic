@@ -106,6 +106,7 @@ def mutate(d):
 	student_b = None
 	for rm in drm.rooms:
 		for s in rm.students:
+			print(s)
 			if s.student_id == st_id_a:
 				student_a = copy.deepcopy(s)
 			if s.student_id == st_id_b:
