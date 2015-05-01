@@ -3,6 +3,10 @@ import random, copy, csv
 
 ## Helper functions ##
 
+def display_student(s):
+	a = [s.student_id, s.gender, s.sleep, s.roommates, s.cleanliness, s.sociability]
+	print a
+
 # gets the number of students that can fit in a dorm by
 # the name of that dorm. See Layouts.py.
 def dorm_size_by_name(dorm_name):
@@ -128,10 +132,6 @@ def mutate(d):
 						# rm.students.pop(i)
 						# rm.students.append(student_a)
 	return drm
-
-
-
-
 
 	# new_dorm = dorm.Dorm("Apley", [])
 	# rooms = []
@@ -379,13 +379,17 @@ def run_algorithm(student_list, dorm_name, cutoff=0.9, max_iter=100):
 def test_compatibility():
 	a = student.Student('m',1,1,1,1,1)
 	b = student.Student('m',1,1,1,1,2)
-	c = student.Student('m',5,3,5,5,5)
-	d = student.Student('m',10,5,10,10,10)
-	e = student.Student('f',1,1,1,1,1)
+	c = student.Student('m',5,3,5,5,3)
+	d = student.Student('m',10,5,10,10,4)
+	e = student.Student('f',1,1,1,1,5)
 	x = compatibility(a,b)
 	y = compatibility(a,c)
 	z = compatibility(a,d)
 	k = compatibility(a,e)
+
+	i = student.Student('m',0,0,0,0,6)
+	j = student.Student('f',10,5,10,10,7)
+	print compatibility(i,j)
 	assert((x>y>z>k) == True)
 
 	# Identical students should have 
