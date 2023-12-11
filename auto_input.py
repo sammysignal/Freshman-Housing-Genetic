@@ -26,7 +26,7 @@ scheme_list = [generate_scheme(DORM_NAME, st) for i in range(population_size)]
 
 iters = 0
 while iters < MAX_ITER:
-	print iters
+	print(iters)
 	crossovers = []
 	for i in range(population_size):
 		val = crossover(scheme_list[0], scheme_list[1])
@@ -37,7 +37,7 @@ while iters < MAX_ITER:
 	to_mutate = scheme_list + crossovers
 
 	mutations = [mutate(i) for i in to_mutate]
-	
+
 
 	result_list = mutations + to_mutate
 

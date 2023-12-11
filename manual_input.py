@@ -14,9 +14,6 @@ MIN_FIT = 9.0
 population_size = 50
 
 
-# get the number of students that fit into the dorm.
-#d_size = dorm_size_by_name(DORM_NAME)
-
 # generate that many students.
 st = copy.deepcopy(import_students(INPUT_FILE))
 
@@ -25,7 +22,7 @@ scheme_list = [generate_scheme(DORM_NAME, st) for i in range(population_size)]
 
 iters = 0
 while iters < MAX_ITER:
-	print iters
+	print(iters)
 	crossovers = []
 	for i in range(population_size):
 		val = crossover(scheme_list[0], scheme_list[1])
@@ -36,7 +33,7 @@ while iters < MAX_ITER:
 	to_mutate = scheme_list + crossovers
 
 	mutations = [mutate(i) for i in to_mutate]
-	
+
 
 	result_list = mutations + to_mutate
 

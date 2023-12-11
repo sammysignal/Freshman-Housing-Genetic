@@ -5,7 +5,7 @@ import random, copy, csv
 
 def display_student(s):
 	a = [s.student_id, s.gender, s.sleep, s.roommates, s.cleanliness, s.sociability]
-	print a
+	print(a)
 
 # gets the number of students that can fit in a dorm by
 # the name of that dorm. See Layouts.py.
@@ -43,7 +43,7 @@ def generate_scheme(dorm_name, students):
 			counter = counter + 1
 		room_size = room_size + 1
 	return dorm.Dorm(dorm_name, rooms, layouts.Accessible[dorm_name])
-	
+
 
 # In our implementation, Dorms get crossed over,
 # and then mutated, emulating actual genetics.
@@ -70,7 +70,7 @@ def get_student_by_id(d, st_id):
 # one dorm scheme, and then manually put those
 # two students together in the other dorm scheme.
 
-# This is a crossover because it is getting information 
+# This is a crossover because it is getting information
 # from one dorm scheme and applying it to another.
 def crossover(dorm_a, dorm_b):
 	drm = copy.deepcopy(dorm_a)
@@ -114,7 +114,7 @@ def crossover(dorm_a, dorm_b):
 		st_id_b = lover_a
 		student_a = get_student_by_id(drm, lover_a)
 		student_b = get_student_by_id(drm, swap_with_a_id)
-	
+
 	for rm in drm.rooms:
 		for i in range(len(rm.students)):
 			if rm.students[i].student_id == st_id_a:
@@ -245,7 +245,7 @@ def compatibility(student_a, student_b):
 	result = (a + b + c + d + e)
 	return result
 
-# Generates a list of n random students. 
+# Generates a list of n random students.
 def generate_students(n):
 	lst = []
 	for i in range(n):
@@ -281,7 +281,7 @@ def n_choose_2(n):
 # csv format:
 # STUDENT_ID | GENDER | SLEEP | ROOMMATES | CLEANLINESS | SOCIABILITY
 def import_students(filename):
-	with open(filename, 'rb') as f:
+	with open(filename, 'r') as f:
 		reader = csv.reader(f)
 		lst = list(reader)
 		first = True
@@ -322,23 +322,22 @@ def export_students(student_list, filename):
 			)
 	f.close()
 
-		
-		
+
+
 # takes a dorm scheme and displays it in a csv file
 # called 'output.csv'.
 # csv format:
 # ROOM_ID | ROOM_SIZE | STUDENT_ID | GENDER | SLEEP | ROOMMTES | CLEANLINESS | SOCIABILITY
 def display_output(d, filename):
-	with open(filename, 'wb') as output:
-	    student_writer = csv.writer(output, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-	    student_writer.writerow(["Room ID", "Room Size", "Student ID", "Gender", "Sleep", 
-	    						"Roommates", "Cleanliness", "Sociability"])
-	    for rm in d.rooms:
-	    	for st in rm.students:
-	    		student_writer.writerow([rm.room_id, rm.size, st.student_id, 
+	with open(filename, 'w') as output:
+		student_writer = csv.writer(output, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+		student_writer.writerow(["Room ID", "Room Size", "Student ID", "Gender", "Sleep", "Roommates", "Cleanliness", "Sociability"])
+		for rm in d.rooms:
+			for st in rm.students:
+				student_writer.writerow([rm.room_id, rm.size, st.student_id,
 	    								st.gender, st.sleep, st.roommates, st.cleanliness, st.sociability])
 
-	    output.close()
+		output.close()
 
 
 
@@ -363,7 +362,7 @@ def test_compatibility():
 	assert(compatibility(i, j) < 1.0)
 	assert((x>y>z>k) == True)
 
-	# Identical students should have 
+	# Identical students should have
 	# ideal compatibility of 10.0
 	assert(compatibility(a, a) > 9.99)
 
